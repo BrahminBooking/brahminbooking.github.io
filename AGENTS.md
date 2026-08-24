@@ -61,9 +61,10 @@ Alternative states are:
 - The canonical public Purohit registration URL is `/register-as-brahmin/`. It
   must remain accessible without authentication. Do not place public form routes
   behind an auth gate.
-- Launch applicant-facing registration in English, Hindi, Gujarati, and Kannada
-  from the same release. Use versioned, repository-owned translation messages
-  and stable language-neutral values in the database.
+- Keep every public journey available in English, Hindi, Gujarati, and Kannada,
+  including discovery, reviewed guide copy, guest booking, registration,
+  privacy, and optional sign-in. Use versioned, repository-owned translation
+  messages and stable language-neutral values in the database.
 - Keep registration geography-neutral until a pilot geography is deliberately
   selected; do not hard-code one city, district, or state.
 - GitHub Pages is a hard V0 hosting constraint. The Next.js application must be
@@ -125,6 +126,9 @@ Alternative states are:
   message files. Codex reviews every supported catalogue, including consent,
   privacy, identity, and submission copy. Independent native-speaker review is
   recommended before scaling but is not a V0 launch blocker.
+- Never use unreviewed runtime machine translation for religious, consent,
+  privacy, identity, or transactional copy. Automated translation may create a
+  draft only; the reviewed repository catalogue is the production source.
 - Use controlled vocabularies for services, languages, traditions, workflow
   states, and badges, with an `Other` path where field reality requires it.
 - Store canonical values in English identifiers; presentation labels may be

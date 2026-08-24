@@ -212,7 +212,9 @@ revoked later. It never makes the private application record public.
 
 ### G. Localization
 
-The same form launches in all four supported languages:
+Every public V0 journey launches in all four supported languages, including
+consumer discovery, approved guide content, Panchang interface text, guest
+booking, Purohit registration, privacy, and optional sign-in:
 
 | Code | Language | Script |
 | --- | --- | --- |
@@ -223,8 +225,9 @@ The same form launches in all four supported languages:
 
 - Use the free/open-source `next-intl` library and checked-in ICU/JSON message
   files; no paid translation API is needed for V0.
-- Keep one stable set of Zod field keys and database values. Only labels, help
-  text, choices, validation messages, consent copy, and receipts are translated.
+- Keep one stable set of route slugs, Zod field keys, and database values. All
+  user-facing UI, validation, consent, receipt, and reviewed editorial copy is
+  translated; canonical identifiers remain language-neutral.
 - Show a visible language switcher and persist the selected language locally.
   Switching language must preserve entered form values.
 - Store `submission_locale` on the application and use it for staff follow-up.
@@ -234,9 +237,9 @@ The same form launches in all four supported languages:
   before scaling beyond the pilot.
 - Use system fonts with appropriate script fallbacks initially and test on common
   Android devices. Do not render Indian-language copy as images.
-- URLs remain stable and language-neutral in V0: `/register-as-brahmin/` with an
-  in-page language choice. Locale-prefixed duplicate routes are unnecessary for
-  this operational form.
+- URLs remain stable and language-neutral in V0, with an in-page language choice
+  shared by every public route. Locale-prefixed duplicate routes are deferred
+  until multilingual SEO is a deliberate product requirement.
 
 ## 4. Temple and Coordinator Registration Scope
 

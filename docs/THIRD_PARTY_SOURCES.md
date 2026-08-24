@@ -10,6 +10,10 @@ Reviewed 24 August 2026.
 - Next.js, React, React Hook Form, Zod, Tailwind CSS, next-intl and Supabase retain
   their package licenses as recorded in the lockfile. No proprietary component
   kits were added.
+- [next-intl](https://github.com/amannn/next-intl) is MIT licensed and is the
+  production localization layer. Tolgee, Weblate, and LibreTranslate were
+  evaluated as optional free review/drafting tools but are not runtime
+  dependencies. See `docs/LOCALIZATION.md`.
 
 No source was copied or adapted from ReactBits, Magic UI, Aceternity UI, shadcn,
 Hermès, Rolex, Ferrari/F1, Apple, Tesla, Nike or Prada. Their names informed only

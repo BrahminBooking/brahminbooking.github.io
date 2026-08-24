@@ -14,6 +14,7 @@
 }
 
 * { box-sizing: border-box; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 html { scroll-behavior: smooth; background: var(--paper); }
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans Devanagari", "Noto Sans Gujarati", "Noto Sans Kannada", system-ui, sans-serif; }
 button, input, select, textarea { font: inherit; }
@@ -161,6 +162,7 @@ h1, h2 { margin: 0; font-family: Georgia, "Noto Serif Devanagari", "Noto Serif G
 .consumer-nav a::after { content: ""; position: absolute; right: 0; bottom: -7px; left: 0; height: 1px; background: #a54124; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
 .consumer-nav a:hover::after { transform: scaleX(1); }
 .consumer-header__actions { justify-self: end; display: flex; align-items: center; gap: 22px; }
+.consumer-language select { min-height: 40px; border: 1px solid rgba(95, 61, 42, .28); border-radius: 999px; padding: 8px 30px 8px 12px; background: rgba(255, 250, 241, .74); color: #5b483d; font: inherit; font-size: 11px; font-weight: 750; cursor: pointer; }
 .provider-link { color: #7d685a; }
 .nav-book { display: inline-flex; align-items: center; gap: 13px; padding: 12px 15px 12px 17px; background: #70291e; color: #fffaf1; font-size: 11px; font-weight: 800; letter-spacing: .045em; }
 
@@ -247,6 +249,7 @@ h1, h2 { margin: 0; font-family: Georgia, "Noto Serif Devanagari", "Noto Serif G
   .wordmark__seal { width: 36px; height: 36px; font-size: 18px; }
   .wordmark__copy strong { font-size: 16px; }
   .wordmark__copy small, .provider-link { display: none; }
+  .consumer-language select { max-width: 104px; min-height: 38px; padding-left: 9px; font-size: 10px; }
   .nav-book { padding: 11px 13px; font-size: 9px; }
   .mobile-nav { display: flex; width: 100%; overflow-x: auto; border-top: 1px solid rgba(80, 48, 29, .12); padding: 10px 14px; gap: 22px; scrollbar-width: none; }
   .mobile-nav a { flex: 0 0 auto; color: #674f42; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }

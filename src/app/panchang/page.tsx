@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 import { PanchangExperience } from '@/features/panchang/PanchangExperience'
+import { T } from '@/i18n/T'
 
 export const metadata: Metadata = {
   title: 'Daily Panchang',
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 }
 
 export default function PanchangPage() {
-  return <div className="consumer-page"><SiteHeader /><main className="inner-page"><header className="page-intro"><p className="section-kicker">Daily context</p><h1>Understand the day,<br /><em>in your location.</em></h1><p>Panchang timings depend on place, timezone and calculation convention. We show those assumptions beside every result.</p></header><PanchangExperience /></main><SiteFooter /></div>
+  return <div className="consumer-page"><SiteHeader /><main className="inner-page"><header className="page-intro"><p className="section-kicker"><T id="panchang.pageKicker" /></p><h1><T id="panchang.pageTitle1" /><br /><em><T id="panchang.pageTitle2" /></em></h1><p><T id="panchang.pageIntro" /></p></header><PanchangExperience /></main><SiteFooter /></div>
 }

@@ -42,6 +42,28 @@ test('mobile navigation and keyboard focus remain usable', async ({ page }) => {
   await expect(page.locator(':focus')).toBeVisible()
 })
 
+test('language choice translates the site and persists across public journeys', async ({ page }) => {
+  await page.goto('/')
+  const language = page.locator('.consumer-language select')
+
+  await language.selectOption('hi')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'hi')
+  await expect(page.getByRole('heading', { name: /पवित्र संस्कार/ })).toBeVisible()
+
+  await page.goto('/book/')
+  await expect(page.getByRole('heading', { name: /बातचीत शुरू करें/ })).toBeVisible()
+  await expect(page.getByLabel(/शहर या कस्बा/)).toBeVisible()
+
+  await page.locator('.consumer-language select').selectOption('gu')
+  await expect(page.getByRole('heading', { name: /વાતચીત શરૂ કરો/ })).toBeVisible()
+
+  await page.locator('.consumer-language select').selectOption('kn')
+  await expect(page.getByRole('heading', { name: /ಸಂಭಾಷಣೆಯನ್ನು ಆರಂಭಿಸಿ/ })).toBeVisible()
+
+  await page.goto('/register-as-brahmin/')
+  await expect(page.getByRole('heading', { name: /ಪುರೋಹಿತ \/ ಬ್ರಾಹ್ಮಣರಾಗಿ ನೋಂದಾಯಿಸಿ/ })).toBeVisible()
+})
+
 test('reduced motion keeps essential content visible without transforms', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')

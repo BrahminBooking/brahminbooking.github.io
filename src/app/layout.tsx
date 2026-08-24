@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { AnalyticsObserver } from '@/components/AnalyticsObserver'
+import { SiteLocaleProvider } from '@/i18n/SiteLocaleProvider'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -22,5 +23,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><AnalyticsObserver />{children}</body></html>
+  return <html lang="en"><body><SiteLocaleProvider><AnalyticsObserver />{children}</SiteLocaleProvider></body></html>
 }
