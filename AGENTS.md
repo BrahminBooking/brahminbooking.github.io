@@ -8,9 +8,11 @@ below.
 
 - BrahminBooking is a trust-first marketplace for verified Purohits/Brahmins,
   temples, and Hindu religious services.
-- Build supply acquisition and verification before consumer booking.
-- V0 priority is: Purohit registration, temple registration, regional
-  coordinator registration, then the internal verification dashboard.
+- Preserve the supply acquisition and verification foundation while developing
+  the approved consumer discovery and guest booking-request experience.
+- Current priority is: keep Purohit registration operational, ship trustworthy
+  Panchang/festival/puja discovery, add guest booking requests, then continue
+  temple/coordinator registration and the internal verification dashboard.
 - Optimize the pilot for 25-50 verified Purohits, 5 temples, one concentrated
   geography, and 5-10 manually coordinated bookings.
 - Treat the Peethadheesh, chela, Purohit, temple, and coordinator network as a
@@ -19,10 +21,12 @@ below.
 
 ## V0 Scope Guardrails
 
-- Do not add customer accounts, payments, chat, reviews, automated matching,
-  complex calendars, or native mobile apps.
-- Do not build public consumer booking unless a later approved plan explicitly
-  brings it into scope.
+- Consumer discovery and a manually coordinated guest booking-request flow are
+  explicitly approved for Consumer V0. A booking request is not a confirmed
+  booking and must never be represented as one.
+- Do not add mandatory customer accounts, payments, chat, reviews, automated
+  matching, real-time provider availability, complex calendars, or native
+  mobile apps.
 - Do not collect bank details or full Aadhaar numbers during initial
   registration.
 - Collect only data required for onboarding, verification, pilot operations,
@@ -73,8 +77,14 @@ Alternative states are:
   database protected even if a caller bypasses the UI.
 - Keep uploaded verification documents in private Supabase Storage. Use
   short-lived signed URLs; never publish document object paths as public URLs.
-- Admin authentication uses Supabase Auth. There are no applicant or customer
-  accounts in V0.
+- Admin authentication uses Supabase Auth. Applicant accounts remain out of
+  scope. Consumer V0 is guest-first; optional account creation/claiming may be
+  shown only after request submission and must not block the request.
+- Religious calendar data must pass through a provider interface. Never present
+  fixture, stale, inferred, or unreviewed data as authoritative. Show its source,
+  location, date/timezone, freshness, and review status near the result.
+- Festival and puja editorial content must carry source/provenance and review
+  state. Only approved entries may be indexed or presented as reviewed guidance.
 
 ## Data and Security
 

@@ -1,7 +1,37 @@
 # BrahminBooking Supply Acquisition and Verification V0
 
-Status: **Plan approved; public Purohit registration implemented locally and
-awaiting Supabase project deployment.**
+Status: **Supply plan approved and registration implemented. Consumer Experience
+V0 approved on 24 August 2026 and now in development on
+`feat/consumer-experience-v0`.**
+
+## Consumer Experience V0 — approved scope extension
+
+The consumer release adds an editorial homepage, location-aware Panchang,
+approved puja and festival guides, and a guest-first booking-request journey.
+It preserves `/register-as-brahmin/` and the existing provider acquisition data.
+
+Required public routes are `/`, `/panchang/`, `/pujas/`, `/pujas/[slug]/`,
+`/festivals/`, `/festivals/[slug]/`, `/book/`, `/booking/requested/`, and
+`/auth/`. All routes must remain compatible with Next.js static export and
+GitHub Pages.
+
+Consumer V0 intentionally does not include payment, chat, reviews, automated
+matching, real-time availability, or complex scheduling. A guest submission is
+a request for manual coordination, never an instant confirmation. Optional
+sign-in or account creation appears only after submission and is not required.
+
+Panchang data is accessed through an internal provider contract so that a live
+provider can be replaced without rewriting the UI. Development fixtures must be
+visibly labelled, excluded from search indexing, and must not be described as
+religious guidance. Live launch requires source attribution, location,
+timezone, freshness, failure/stale handling, and expert acceptance of the
+provider's ayanamsa, day-boundary, regional-calendar, and festival conventions.
+
+Puja and festival records are structured content with `draft`, `in_review`, or
+`approved` state, reviewer metadata, sources, and last-reviewed timestamps.
+Only `approved` content is public/indexable. Initial consumer bookings are
+stored separately from provider applications and may later be claimed only
+after authenticated, verified ownership of the same contact channel.
 
 ### Implementation status — 24 August 2026
 
@@ -59,12 +89,12 @@ operate a small pilot without spreadsheets becoming the source of truth.
 2. Temple registration
 3. Regional coordinator registration
 4. Internal admin verification dashboard
-5. Public consumer discovery and booking only in a later release
+5. Approved Consumer Experience V0: discovery and manually coordinated guest booking requests
 
 ### Explicitly out of scope
 
-- Customer accounts or customer authentication
-- Online booking and automated matching
+- Mandatory customer accounts or authentication before a request
+- Instant booking, real-time availability, or automated matching
 - Payments, payouts, bank details, or financial KYC
 - Chat or in-product calling
 - Reviews and ratings
@@ -272,7 +302,7 @@ document reference. Notes are always private.
 
 Each awarded badge stores who awarded it, when, supporting verification check,
 and optional expiry/revocation data. `Bookings Completed` remains unavailable or
-manually recorded during V0 because booking automation is out of scope.
+manually recorded during V0 because request handling remains human-coordinated.
 
 ### Minimum approval policy for the pilot
 
@@ -714,7 +744,7 @@ the first bookings.
 - Referral code contribution and approval quality
 - Verification checklist consistency across reviewers
 
-Avoid vanity marketplace metrics before consumer booking exists.
+Avoid vanity marketplace metrics while early consumer bookings remain manually coordinated.
 
 ## 12. Decisions Needed at Plan Review
 
