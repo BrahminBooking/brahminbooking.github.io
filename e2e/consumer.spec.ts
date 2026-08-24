@@ -12,7 +12,7 @@ test('all V0 routes are reachable from the static export', async ({ page }) => {
 
 test('guest can submit a booking request without authentication', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('link', { name: /Explore today.s Panchang/i }).click()
+  await page.getByRole('link', { name: /View full Panchang/i }).click()
   await expect(page).toHaveURL(/\/panchang\/$/)
   await page.getByRole('link', { name: 'Pujas', exact: true }).first().click()
   await page.getByRole('link', { name: /Griha Pravesh/ }).first().click()
@@ -48,7 +48,7 @@ test('language choice translates the site and persists across public journeys', 
 
   await language.selectOption('hi')
   await expect(page.locator('html')).toHaveAttribute('lang', 'hi')
-  await expect(page.getByRole('heading', { name: /पवित्र संस्कार/ })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /आज से शुभ आरंभ करें/ })).toBeVisible()
 
   await page.goto('/book/')
   await expect(page.getByRole('heading', { name: /बातचीत शुरू करें/ })).toBeVisible()
@@ -67,7 +67,7 @@ test('language choice translates the site and persists across public journeys', 
 test('reduced motion keeps essential content visible without transforms', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  const hero = page.locator('.editorial-hero__copy')
+  const hero = page.locator('.panchang-hero__copy')
   await expect(hero).toBeVisible()
   expect(await hero.evaluate((element) => getComputedStyle(element).transform)).toBe('none')
 })
@@ -78,9 +78,23 @@ for (const width of [360, 390, 768, 1024, 1440]) {
     await page.goto('/')
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
     expect(overflow).toBeLessThanOrEqual(1)
-    await expect(page.getByRole('link', { name: /Find a Purohit|Book a Puja/ }).first()).toBeVisible()
+    await expect(page.getByRole('link', { name: /Book a Purohit|Book a Puja/ }).first()).toBeVisible()
   })
 }
+
+test('homepage Panchang details and booking CTA are usable', async ({ page }) => {
+  await page.goto('/')
+  const primaryCta = page.getByRole('link', { name: 'Book a Purohit', exact: true }).first()
+  await expect(primaryCta).toHaveAttribute('href', '/book/')
+
+  await page.getByRole('tab', { name: 'Timings' }).click()
+  await expect(page.getByText('Abhijit Muhurta', { exact: true })).toBeVisible()
+  await expect(page.getByText('Rahu Kalam', { exact: true })).toBeVisible()
+
+  await page.getByRole('tab', { name: 'Source' }).click()
+  await expect(page.getByText('Source & accuracy')).toBeVisible()
+  await expect(page.getByText(/clearly labelled development fixture/)).toBeVisible()
+})
 
 test('Panchang fixtures are impossible to mistake for live guidance', async ({ page }) => {
   await page.goto('/panchang/')
