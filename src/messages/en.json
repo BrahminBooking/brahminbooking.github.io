@@ -1,0 +1,127 @@
+{
+  "brand": { "name": "BrahminBooking", "trust": "Trusted religious service network" },
+  "home": {
+    "eyebrow": "Supply registration is now open",
+    "title": "Serve families with trust, dignity and tradition.",
+    "description": "Join a verified network of Purohits and Brahmins serving Hindu religious needs across India.",
+    "cta": "Register as a Purohit / Brahmin",
+    "note": "No login required · Usually takes 8–12 minutes"
+  },
+  "registration": {
+    "eyebrow": "Purohit network registration",
+    "title": "Register as a Purohit / Brahmin",
+    "description": "Tell us about your practice, experience and service areas. Our team will contact you after reviewing your application.",
+    "privacyNote": "Your application is private. We never ask for your full Aadhaar number or bank details here.",
+    "languageLabel": "Form language",
+    "draftNotice": "Your progress is saved only on this device. Avoid shared devices when entering personal information.",
+    "optional": "Optional",
+    "required": "Required",
+    "stepCount": "Step {current} of {total}",
+    "steps": {
+      "identity": "Your details",
+      "location": "Location",
+      "practice": "Practice",
+      "services": "Services",
+      "trust": "References",
+      "consent": "Review & consent"
+    },
+    "sections": {
+      "identityTitle": "Let us know who you are",
+      "identityDescription": "Use details through which our verification team can reach you.",
+      "locationTitle": "Where can you serve?",
+      "locationDescription": "Keep this broad for now. You can update service areas during verification.",
+      "practiceTitle": "Your tradition and experience",
+      "practiceDescription": "Share the background that helps us understand your practice.",
+      "servicesTitle": "Pujas and services",
+      "servicesDescription": "Choose everything you regularly perform.",
+      "trustTitle": "Network and reference",
+      "trustDescription": "A reference is helpful but not required for this registration.",
+      "consentTitle": "Confirm and submit",
+      "consentDescription": "Please review these permissions before sending your application."
+    },
+    "fields": {
+      "fullName": "Full name",
+      "displayName": "Name used publicly",
+      "phone": "Mobile number",
+      "whatsapp": "WhatsApp number",
+      "email": "Email address",
+      "preferredContact": "Preferred contact method",
+      "preferredTime": "Preferred time to contact",
+      "birthYear": "Year of birth",
+      "aadhaarAvailable": "Is Aadhaar available for later verification?",
+      "aadhaarLastFour": "Last four Aadhaar digits",
+      "aadhaarHelp": "Optional. Enter only the last four digits—never the full Aadhaar number.",
+      "city": "City / town / village",
+      "district": "District",
+      "state": "State",
+      "country": "Country",
+      "postalCode": "PIN / postal code",
+      "serviceAreas": "Areas where you can provide services",
+      "serviceAreasHelp": "List cities, districts or nearby areas, separated by commas.",
+      "travelRadiusKm": "Maximum travel radius (km)",
+      "spokenLanguages": "Languages you speak",
+      "ritualLanguages": "Languages used while conducting rituals",
+      "tradition": "Sampradaya / tradition",
+      "traditionOther": "Describe your tradition",
+      "guruName": "Guru's name",
+      "affiliation": "Temple, matha, peetha or institution affiliation",
+      "experienceYears": "Years of experience",
+      "background": "Training and background",
+      "backgroundHelp": "Briefly share how you learned, your qualifications and the work you currently do.",
+      "pujas": "Pujas performed",
+      "samskaras": "Samskaras performed",
+      "otherServices": "Other services or specializations",
+      "serviceModes": "Where you provide services",
+      "samagriCapability": "Can you arrange puja samagri?",
+      "samagriNotes": "Samagri details",
+      "dakshinaMin": "Indicative minimum dakshina / service amount (₹)",
+      "dakshinaMax": "Indicative maximum dakshina / service amount (₹)",
+      "chargeNotes": "Travel or additional charge notes",
+      "referenceName": "Reference name",
+      "referenceRelationship": "Relationship to you",
+      "referencePhone": "Reference mobile number",
+      "referenceInstitution": "Reference's temple / institution",
+      "referencePermission": "Share a reference only when you have their permission.",
+      "referralCode": "Coordinator / referral code",
+      "discoverySource": "How did you hear about BrahminBooking?",
+      "truthConsent": "I confirm that the information in this application is true to the best of my knowledge.",
+      "contactConsent": "I permit BrahminBooking to contact me and any reference I have provided for verification.",
+      "privacyConsent": "I agree to the privacy notice and understand that my information will be used for onboarding and verification.",
+      "publicProfilePermission": "After approval, BrahminBooking may prepare and publish my public profile. I can withdraw this permission later.",
+      "website": "Website"
+    },
+    "options": {
+      "phone": "Phone call",
+      "whatsapp": "WhatsApp",
+      "yes": "Yes",
+      "no": "No",
+      "preferNot": "Prefer not to say",
+      "samagriAll": "Yes, all samagri",
+      "samagriSome": "Some samagri",
+      "samagriNone": "No"
+    },
+    "languages": {
+      "hindi": "Hindi", "sanskrit": "Sanskrit", "english": "English", "gujarati": "Gujarati", "kannada": "Kannada", "marathi": "Marathi", "telugu": "Telugu", "tamil": "Tamil", "bengali": "Bengali"
+    },
+    "traditions": {
+      "smarta": "Smarta", "vaishnava": "Vaishnava", "shaiva": "Shaiva", "shakta": "Shakta", "swaminarayan": "Swaminarayan", "madhva": "Madhva", "ramanandi": "Ramanandi"
+    },
+    "pujas": {
+      "ganesh-puja": "Ganesh Puja", "satyanarayan-puja": "Satyanarayan Puja", "griha-pravesh": "Griha Pravesh", "rudrabhishek": "Rudrabhishek", "lakshmi-puja": "Lakshmi Puja", "navagraha-puja": "Navagraha Puja", "havan-homa": "Havan / Homa", "vastu-puja": "Vastu Puja"
+    },
+    "samskaras": {
+      "vivaha": "Vivaha / Wedding", "upanayana": "Upanayana / Janeu", "namakarana": "Namakarana", "annaprashana": "Annaprashana", "mundan": "Mundan", "antyeshti": "Antyeshti", "shraddha": "Shraddha"
+    },
+    "modes": { "home": "At devotee's home", "temple": "At a temple", "remote": "Remote / online" },
+    "common": { "other": "Other" },
+    "buttons": { "back": "Back", "continue": "Continue", "submit": "Submit application", "submitting": "Submitting securely…", "startAgain": "Submit another application", "home": "Return home" },
+    "errors": {
+      "required": "This field is required.", "invalidNumber": "Enter a valid number.", "tooSmall": "The value is too low.", "tooLarge": "The value is too high.", "tooLong": "Please shorten this response.", "invalidPhone": "Enter a valid mobile number.", "invalidEmail": "Enter a valid email address.", "invalidPostalCode": "Enter a valid PIN or postal code.", "invalidAadhaar": "Enter exactly the last four digits only.", "selectOne": "Select at least one option.", "selectService": "Select or describe at least one service.", "rangeOrder": "Maximum amount must be greater than or equal to minimum.", "backgroundShort": "Please share at least a short description.", "consentRequired": "This consent is required.", "serviceUnavailable": "Registration is not connected yet. Please try again later.", "submissionFailed": "We could not submit your application. Your draft is safe on this device; please try again.", "invalidReceipt": "The application was received but no reference number was returned. Please contact support.", "generic": "Please check the highlighted fields."
+    },
+    "success": { "eyebrow": "Application received", "title": "Thank you for registering.", "description": "Your application reference is", "followup": "Our verification team will review your information and contact you. Please keep this reference number." },
+    "privacyLink": "Read the privacy notice"
+  },
+  "privacy": {
+    "eyebrow": "V0 privacy notice", "title": "How we use registration information", "updated": "Updated 24 August 2026", "intro": "BrahminBooking collects registration information to evaluate and onboard Purohits, Brahmins, temples and coordinators. Applications are not public.", "collectTitle": "Information we collect", "collectBody": "We collect the identity, contact, location, tradition, experience, services, optional reference and consent information entered in the form. We may collect optional Aadhaar availability and the last four digits only. We do not collect the full Aadhaar number, bank details or payment details in this form.", "useTitle": "Why we use it", "useBody": "We use the information for contact, manual verification, reference checks when supplied, application review, fraud prevention and—only with separate permission—future public-profile preparation.", "accessTitle": "Access and control", "accessBody": "Access is limited to authorized verification staff and service providers needed to operate Supabase. To correct or delete an application or withdraw public-profile permission, reply to the verification team's message or use the coordinator channel through which you were referred. Retention periods will be finalized before the external pilot.", "return": "Return to registration"
+  }
+}
