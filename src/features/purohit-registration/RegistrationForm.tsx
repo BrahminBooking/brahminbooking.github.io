@@ -160,13 +160,13 @@ export function RegistrationForm({ locale, localeLabels, onLocaleChange }: Regis
                 <InputField label={t('fields.fullName')} required error={fieldError(errors, 'fullName', t)}><input autoComplete="name" {...register('fullName')} /></InputField>
                 <InputField label={t('fields.displayName')} optional={t('optional')} error={fieldError(errors, 'displayName', t)}><input {...register('displayName')} /></InputField>
                 <div className="field-grid">
-                  <InputField label={t('fields.phone')} required error={fieldError(errors, 'phone', t)}><input type="tel" inputMode="tel" autoComplete="tel" placeholder="+91" {...register('phone')} /></InputField>
+                  <InputField label={t('fields.phone')} required error={fieldError(errors, 'phone', t)}><input type="tel" inputMode="tel" autoComplete="tel" {...register('phone')} /></InputField>
                   <InputField label={t('fields.whatsapp')} optional={t('optional')} error={fieldError(errors, 'whatsapp', t)}><input type="tel" inputMode="tel" {...register('whatsapp')} /></InputField>
                 </div>
                 <InputField label={t('fields.email')} optional={t('optional')} error={fieldError(errors, 'email', t)}><input type="email" autoComplete="email" {...register('email')} /></InputField>
                 <RadioGroup label={t('fields.preferredContact')} name="preferredContact" options={[['whatsapp', t('options.whatsapp')], ['phone', t('options.phone')]]} register={register} />
                 <div className="field-grid">
-                  <InputField label={t('fields.preferredTime')} optional={t('optional')} error={fieldError(errors, 'preferredTime', t)}><input placeholder="10:00–14:00" {...register('preferredTime')} /></InputField>
+                  <InputField label={t('fields.preferredTime')} optional={t('optional')} error={fieldError(errors, 'preferredTime', t)}><input {...register('preferredTime')} /></InputField>
                   <InputField label={t('fields.birthYear')} optional={t('optional')} error={fieldError(errors, 'birthYear', t)}><input type="number" inputMode="numeric" min="1920" max={new Date().getFullYear() - 18} {...register('birthYear')} /></InputField>
                 </div>
                 <RadioGroup label={t('fields.aadhaarAvailable')} name="aadhaarAvailable" options={[['yes', t('options.yes')], ['no', t('options.no')], ['prefer-not', t('options.preferNot')]]} register={register} />

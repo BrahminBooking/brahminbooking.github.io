@@ -8,12 +8,16 @@ import { HomePathways } from '@/features/home/HomePathways'
 import { PanchangHero } from '@/features/home/PanchangHero'
 import { T } from '@/i18n/T'
 
-export const metadata = { robots: { index: false, follow: true } }
+export const metadata = {
+  title: { absolute: 'BrahminBooking — Pujas, Panchang & Trusted Purohits' },
+  description: 'Explore Hindu pujas and festivals, understand Panchang context, and request a trusted Purohit without creating an account.',
+  alternates: { canonical: '/' },
+}
 
 const rituals = [
-  { number: '01', title: 'Griha Pravesh', note: 'ritual1Note', meta: 'ritual1Meta' },
-  { number: '02', title: 'Satyanarayan Puja', note: 'ritual2Note', meta: 'ritual2Meta' },
-  { number: '03', title: 'Vivah Sanskar', note: 'ritual3Note', meta: 'ritual3Meta' },
+  { number: '01', slug: 'griha-pravesh', title: 'Griha Pravesh', note: 'ritual1Note', meta: 'ritual1Meta' },
+  { number: '02', slug: 'satyanarayan-puja', title: 'Satyanarayan Puja', note: 'ritual2Note', meta: 'ritual2Meta' },
+  { number: '03', slug: 'vivah-sanskar', title: 'Vivah Sanskar', note: 'ritual3Note', meta: 'ritual3Meta' },
 ]
 
 export default function HomePage() {
@@ -48,7 +52,7 @@ export default function HomePage() {
           </div>
           <Reveal><div className="ritual-list">
             {rituals.map((ritual) => (
-              <Link className="ritual-row" href="/pujas/" key={ritual.number}>
+              <Link className="ritual-row" href={`/pujas/${ritual.slug}/`} key={ritual.number}>
                 <span className="ritual-row__number">{ritual.number}</span>
                 <span><strong>{ritual.title}</strong><small><T id={`home.${ritual.note}`} /></small></span>
                 <span className="ritual-row__meta"><T id={`home.${ritual.meta}`} /></span><span className="ritual-row__arrow" aria-hidden="true">↗</span>

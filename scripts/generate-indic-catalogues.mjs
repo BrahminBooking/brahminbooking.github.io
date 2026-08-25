@@ -53,7 +53,6 @@ const locales = {
   sd: { model: 'snd_Arab', label: 'سنڌي' },
   ta: { model: 'tam_Taml', label: 'தமிழ்' },
   te: { model: 'tel_Telu', label: 'తెలుగు' },
-  ur: { model: 'urd_Arab', label: 'اردو' },
 }
 
 const args = new Set(process.argv.slice(2))

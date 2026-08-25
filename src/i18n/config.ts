@@ -39,7 +39,6 @@ const localeLoaders: Record<SupportedLocale, () => Promise<LocaleMessages>> = {
   sd: async () => mergeModules(await Promise.all([import('@/messages/sd.json'), import('@/messages/site/sd.json'), import('@/messages/content/sd.json')])),
   ta: async () => mergeModules(await Promise.all([import('@/messages/ta.json'), import('@/messages/site/ta.json'), import('@/messages/content/ta.json')])),
   te: async () => mergeModules(await Promise.all([import('@/messages/te.json'), import('@/messages/site/te.json'), import('@/messages/content/te.json')])),
-  ur: async () => mergeModules(await Promise.all([import('@/messages/ur.json'), import('@/messages/site/ur.json'), import('@/messages/content/ur.json')])),
 }
 
 export async function loadLocaleMessages(locale: SupportedLocale): Promise<LocaleMessages> {

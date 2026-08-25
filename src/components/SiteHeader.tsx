@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
 import { track } from '@/lib/analytics'
 import { localeLabels, supportedLocales, type SupportedLocale } from '@/i18n/config'
 import { useSiteLocale } from '@/i18n/SiteLocaleProvider'
@@ -17,6 +18,13 @@ const navigation = [
 export function SiteHeader() {
   const { locale, setLocale } = useSiteLocale()
   const t = useTranslations('site')
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setMenuOpen(false) }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [])
 
   return (
     <header className="consumer-header">
@@ -36,12 +44,16 @@ export function SiteHeader() {
             </select>
           </label>
           <Link className="provider-link" href="/register-as-brahmin/" onClick={() => track('provider_registration_cta_clicked', { route: '/register-as-brahmin/' })}>{t('nav.join')}</Link>
-          <Link className="provider-link sign-in-link" href="/auth/">{t('nav.signIn')}</Link>
           <Link className="nav-book" href="/book/">{t('nav.book')} <span aria-hidden="true">↗</span></Link>
+          <button className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="mobile-menu" aria-label="Menu" onClick={() => setMenuOpen((value) => !value)}>
+            <span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" />
+          </button>
         </div>
       </div>
-      <nav className="mobile-nav" aria-label="Mobile navigation">
-        <Link href="/#today">{t('nav.today')}</Link><Link href="/book/">{t('nav.bookShort')}</Link><Link href="/pujas/">{t('nav.pujas')}</Link><Link href="/auth/">{t('nav.account')}</Link><Link href="/register-as-brahmin/" onClick={() => track('provider_registration_cta_clicked', { route: '/register-as-brahmin/' })}>{t('nav.join')}</Link>
+      <nav id="mobile-menu" className={`mobile-nav${menuOpen ? ' is-open' : ''}`} aria-label="Mobile navigation">
+        {navigation.map((item) => <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{t(`nav.${item.key}`)}</Link>)}
+        <Link href="/register-as-brahmin/" onClick={() => { setMenuOpen(false); track('provider_registration_cta_clicked', { route: '/register-as-brahmin/' }) }}>{t('nav.join')}</Link>
+        <Link className="mobile-nav__book" href="/book/" onClick={() => setMenuOpen(false)}>{t('nav.book')}</Link>
       </nav>
     </header>
   )

@@ -9,7 +9,7 @@ clients never receive a service-role key and cannot insert directly into the
 private booking table.
 
 The export uses one persistent client-side locale preference and checked-in
-`next-intl` catalogues for English and all 22 Scheduled Indian languages. Stable
+`next-intl` catalogues for English and 21 Scheduled Indian languages (excluding Urdu). Stable
 language-neutral URLs are retained for V0. Reviewed puja and festival
 translations are versioned beside their canonical English records; there is no
 runtime machine-translation dependency. See `docs/LOCALIZATION.md`.

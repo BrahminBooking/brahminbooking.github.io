@@ -34,6 +34,7 @@ npx supabase db push
 npx supabase secrets set RATE_LIMIT_SALT=GENERATE_A_LONG_RANDOM_VALUE
 npx supabase secrets set ALLOWED_ORIGINS=https://brahminbooking.github.io,http://localhost:3000
 npx supabase functions deploy submit-application --no-verify-jwt
+npx supabase functions deploy submit-booking-request --no-verify-jwt
 ```
 
 The function uses Supabase-provided `SUPABASE_URL` and
@@ -59,7 +60,8 @@ GitHub Actions as the Pages source.
 
 - Applicant registration requires no account or login.
 - Admin authentication and dashboard are planned next, not included yet.
-- The public site and registration form support English plus all 22 Scheduled Indian languages.
+- The public site and registration form support English plus 21 Scheduled Indian
+  languages. Urdu is intentionally excluded from the current release.
 - Full Aadhaar numbers, bank details, documents, payments, bookings, and customer
   accounts are not collected in this release.
 - References are optional in the current pilot configuration.

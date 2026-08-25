@@ -10,7 +10,7 @@ import { LocalizedGuideText } from '@/content/LocalizedGuideText'
 
 export const dynamicParams = false
 export function generateStaticParams() { return approvedPujaGuides.map(({ slug }) => ({ slug })) }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const guide = getApprovedPuja(slug); return guide ? { title: guide.name, description: guide.summary, alternates: { canonical: `/pujas/${slug}/` } } : {} }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const guide = getApprovedPuja(slug); return guide ? { title: guide.name, description: guide.summary, alternates: { canonical: `/pujas/${slug}/` }, openGraph: { title: guide.name, description: guide.summary, url: `/pujas/${slug}/`, images: [] }, twitter: { title: guide.name, description: guide.summary, images: [] } } : {} }
 
 export default async function PujaDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const guide = getApprovedPuja(slug); if (!guide) notFound()

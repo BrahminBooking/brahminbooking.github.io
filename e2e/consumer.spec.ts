@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const routes = ['/', '/panchang/', '/pujas/', '/pujas/griha-pravesh/', '/festivals/', '/festivals/diwali/', '/book/', '/booking/requested/', '/auth/', '/register-as-brahmin/']
+const routes = ['/', '/panchang/', '/pujas/', '/pujas/griha-pravesh/', '/festivals/', '/festivals/diwali/', '/book/', '/booking/requested/', '/register-as-brahmin/', '/privacy/']
 
 test('all V0 routes are reachable from the static export', async ({ page }) => {
   for (const route of routes) {
@@ -35,9 +35,11 @@ test('mobile navigation and keyboard focus remain usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
   const mobileNav = page.getByRole('navigation', { name: 'Mobile navigation' })
+  await expect(mobileNav).not.toBeVisible()
+  await page.getByRole('button', { name: 'Menu' }).click()
   await expect(mobileNav).toBeVisible()
   await expect(mobileNav.getByRole('link', { name: 'Today' })).toBeVisible()
-  await expect(mobileNav.getByRole('link', { name: 'Book', exact: true })).toBeVisible()
+  await expect(mobileNav.getByRole('link', { name: 'Book a Purohit', exact: true })).toBeVisible()
   await page.keyboard.press('Tab')
   await expect(page.locator(':focus')).toBeVisible()
 })
@@ -64,15 +66,14 @@ test('language choice translates the site and persists across public journeys', 
   await expect(page.getByRole('heading', { name: /ಪುರೋಹಿತ \/ ಬ್ರಾಹ್ಮಣರಾಗಿ ನೋಂದಾಯಿಸಿ/ })).toBeVisible()
 })
 
-test('all Scheduled Indian languages are selectable and RTL locales set document direction', async ({ page }) => {
+test('all enabled Indian languages are selectable and RTL locales set document direction', async ({ page }) => {
   await page.goto('/')
   const language = page.locator('.consumer-language select')
-  await expect(language.locator('option')).toHaveCount(23)
+  await expect(language.locator('option')).toHaveCount(22)
 
-  await language.selectOption('ur')
-  await expect(page.locator('html')).toHaveAttribute('lang', 'ur')
+  await language.selectOption('sd')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'sd')
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
-  await expect(page.getByRole('link', { name: /پروہت/ }).first()).toBeVisible()
 
   await language.selectOption('bn')
   await expect(page.locator('html')).toHaveAttribute('lang', 'bn')
@@ -97,23 +98,32 @@ for (const width of [360, 390, 768, 1024, 1440]) {
   })
 }
 
-test('homepage Panchang details and booking CTA are usable', async ({ page }) => {
+test('homepage Panchang empty state and booking CTA are usable', async ({ page }) => {
   await page.goto('/')
   const primaryCta = page.getByRole('link', { name: 'Book a Purohit', exact: true }).first()
   await expect(primaryCta).toHaveAttribute('href', '/book/')
 
-  await page.getByRole('tab', { name: 'Timings' }).click()
-  await expect(page.getByText('Abhijit Muhurta', { exact: true })).toBeVisible()
-  await expect(page.getByText('Rahu Kalam', { exact: true })).toBeVisible()
-
-  await page.getByRole('tab', { name: 'Source' }).click()
-  await expect(page.getByText('Source & accuracy')).toBeVisible()
-  await expect(page.getByText(/clearly labelled development fixture/)).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Panchang is unavailable' })).toBeVisible()
+  await expect(page.getByText(/never replace a failed result with fabricated data/)).toBeVisible()
 })
 
-test('Panchang fixtures are impossible to mistake for live guidance', async ({ page }) => {
+test('Panchang never exposes fixture guidance in production UI', async ({ page }) => {
   await page.goto('/panchang/')
-  await expect(page.getByText('Development fixture', { exact: true })).toBeVisible()
-  await expect(page.getByText(/Not for religious decisions/)).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Panchang is unavailable' })).toBeVisible()
+  await expect(page.getByText('Development fixture', { exact: true })).toHaveCount(0)
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
 })
+
+test('the static export includes the production 404 page used by GitHub Pages', async ({ page }) => {
+  const response = await page.goto('/404.html')
+  expect(response?.ok()).toBe(true)
+  await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible()
+})
+
+for (const route of ['/', '/book/', '/register-as-brahmin/', '/pujas/', '/festivals/', '/panchang/']) {
+  test(`${route} has no mobile overflow`, async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 800 })
+    await page.goto(route)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1)
+  })
+}

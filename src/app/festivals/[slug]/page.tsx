@@ -10,7 +10,7 @@ import { LocalizedGuideText } from '@/content/LocalizedGuideText'
 
 export const dynamicParams = false
 export function generateStaticParams() { return approvedFestivalGuides.map(({ slug }) => ({ slug })) }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const guide = getApprovedFestival(slug); return guide ? { title: guide.name, description: guide.summary, alternates: { canonical: `/festivals/${slug}/` } } : {} }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const guide = getApprovedFestival(slug); return guide ? { title: guide.name, description: guide.summary, alternates: { canonical: `/festivals/${slug}/` }, openGraph: { title: guide.name, description: guide.summary, url: `/festivals/${slug}/`, images: [] }, twitter: { title: guide.name, description: guide.summary, images: [] } } : {} }
 
 export default async function FestivalDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const guide = getApprovedFestival(slug); if (!guide) notFound()

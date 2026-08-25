@@ -40,7 +40,7 @@ after authenticated, verified ownership of the same contact channel.
 | 0 — Plan approval | Complete; registration decisions recorded below |
 | 1 — Static application foundation | Complete; GitHub Pages static export and CI workflows added |
 | 2 — Supabase security foundation | Registration schema/RLS complete; admin workflow tables continue with dashboard work |
-| 3 — Purohit registration | Complete locally in English and all 22 Scheduled Indian languages |
+| 3 — Purohit registration | Complete locally in English and 21 Scheduled Indian languages, excluding Urdu |
 | 4 — Secure submission | Migration and Edge Function implemented and locally validated; production deployment requires Supabase project credentials |
 | 5 onward | Not started |
 
@@ -48,7 +48,7 @@ after authenticated, verified ownership of the same contact channel.
 
 - The canonical public registration URL is `/register-as-brahmin/`.
 - Registration is public and does not require an applicant account or login.
-- The first registration release supports English and all 22 Scheduled Indian languages
+- The first registration release supports English and 21 Scheduled Indian languages, excluding Urdu
   simultaneously.
 - Geography remains generic for now; V0 does not assume or hard-code a pilot
   city, district, or state.
@@ -212,7 +212,7 @@ revoked later. It never makes the private application record public.
 
 ### G. Localization
 
-Every public V0 journey launches in English and all 22 Scheduled Indian languages, including
+Every public V0 journey launches in English and 21 Scheduled Indian languages (excluding Urdu), including
 consumer discovery, approved guide content, Panchang interface text, guest
 booking, Purohit registration, privacy, and optional sign-in:
 
@@ -222,7 +222,7 @@ booking, Purohit registration, privacy, and optional sign-in:
 | `as`, `bn`, `mni` | Assamese, Bengali, Manipuri | Bengali-Assamese |
 | `brx`, `doi`, `hi`, `kok`, `mai`, `mr`, `ne`, `sa` | Bodo, Dogri, Hindi, Konkani, Maithili, Marathi, Nepali, Sanskrit | Devanagari |
 | `gu`, `kn`, `ml`, `or`, `pa`, `sat`, `ta`, `te` | Gujarati, Kannada, Malayalam, Odia, Punjabi, Santali, Tamil, Telugu | Respective native scripts |
-| `ks`, `sd`, `ur` | Kashmiri, Sindhi, Urdu | Perso-Arabic (right-to-left) |
+| `ks`, `sd` | Kashmiri, Sindhi | Perso-Arabic (right-to-left) |
 
 - Use the free/open-source `next-intl` library and checked-in ICU/JSON message
   files; no paid translation API is needed for V0.

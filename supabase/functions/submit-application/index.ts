@@ -65,12 +65,16 @@ const payloadSchema = z.object({
 
 const requestSchema = z.object({
   applicationType: z.literal('purohit'),
-  submissionLocale: z.enum(['en', 'hi', 'gu', 'kn']),
+  submissionLocale: z.enum(['en', 'as', 'bn', 'brx', 'doi', 'gu', 'hi', 'kn', 'ks', 'kok', 'mai', 'ml', 'mni', 'mr', 'ne', 'or', 'pa', 'sa', 'sat', 'sd', 'ta', 'te']),
   idempotencyKey: z.uuid(),
   payload: payloadSchema,
 }).strict()
 
-const defaultOrigins = ['https://brahminbooking.github.io', 'http://localhost:3000']
+const defaultOrigins = ['https://brahminbooking.github.io', 'http://localhost:3000', 'http://127.0.0.1:3000']
+
+function normalizeOrigin(value: string) {
+  return value.trim().replace(/\/$/, '')
+}
 
 function response(origin: string | null, body: unknown, status = 200) {
   const headers = new Headers({ 'Content-Type': 'application/json', 'Cache-Control': 'no-store' })
@@ -89,8 +93,9 @@ async function fingerprint(value: string) {
 
 Deno.serve(async (request) => {
   const origin = request.headers.get('origin')
-  const allowedOrigins = (Deno.env.get('ALLOWED_ORIGINS') ?? defaultOrigins.join(',')).split(',').map((value) => value.trim())
-  const allowedOrigin = origin && allowedOrigins.includes(origin) ? origin : null
+  const allowedOrigins = (Deno.env.get('ALLOWED_ORIGINS') ?? defaultOrigins.join(',')).split(',').map(normalizeOrigin).filter(Boolean)
+  const normalizedRequestOrigin = origin ? normalizeOrigin(origin) : null
+  const allowedOrigin = normalizedRequestOrigin && allowedOrigins.includes(normalizedRequestOrigin) ? normalizedRequestOrigin : null
 
   if (origin && !allowedOrigin) return response(null, { error: 'origin_not_allowed' }, 403)
 
@@ -99,6 +104,7 @@ Deno.serve(async (request) => {
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
       'Access-Control-Max-Age': '86400',
+      'Vary': 'Origin, Access-Control-Request-Headers',
     })
     if (allowedOrigin) headers.set('Access-Control-Allow-Origin', allowedOrigin)
     return new Response(null, { status: 204, headers })

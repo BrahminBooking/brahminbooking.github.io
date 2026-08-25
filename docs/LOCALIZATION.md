@@ -3,14 +3,14 @@
 ## V0 decision
 
 BrahminBooking uses `next-intl` and repository-owned catalogues for English and
-all 22 languages in the Eighth Schedule of the Indian Constitution. The selected locale is stored only in the browser,
+21 languages in the Eighth Schedule of the Indian Constitution, with Urdu intentionally excluded from this release. The selected locale is stored only in the browser,
 applied to the document `lang` attribute, and shared across discovery, Panchang,
 booking, registration, privacy, and sign-in. This keeps the existing stable URLs
 and remains compatible with the static GitHub Pages export.
 
 The enabled locale codes are `en`, `as`, `bn`, `brx`, `doi`, `gu`, `hi`, `kn`,
 `ks`, `kok`, `mai`, `ml`, `mni`, `mr`, `ne`, `or`, `pa`, `sa`, `sat`, `sd`,
-`ta`, `te`, and `ur`. Kashmiri, Sindhi, and Urdu use right-to-left layout.
+`ta`, and `te`. Kashmiri and Sindhi use right-to-left layout.
 
 The production site does not call a translation service at runtime. A missing
 or failed external service therefore cannot change religious, privacy, consent,

@@ -61,7 +61,7 @@ Alternative states are:
 - The canonical public Purohit registration URL is `/register-as-brahmin/`. It
   must remain accessible without authentication. Do not place public form routes
   behind an auth gate.
-- Keep every public journey available in English and all 22 Scheduled Indian languages,
+- Keep every public journey available in English and 21 Scheduled Indian languages (all Scheduled languages except Urdu),
   including discovery, reviewed guide copy, guest booking, registration,
   privacy, and optional sign-in. Use versioned, repository-owned translation
   messages and stable language-neutral values in the database.
