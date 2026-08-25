@@ -40,7 +40,7 @@ after authenticated, verified ownership of the same contact channel.
 | 0 — Plan approval | Complete; registration decisions recorded below |
 | 1 — Static application foundation | Complete; GitHub Pages static export and CI workflows added |
 | 2 — Supabase security foundation | Registration schema/RLS complete; admin workflow tables continue with dashboard work |
-| 3 — Purohit registration | Complete locally in English, Hindi, Gujarati, and Kannada |
+| 3 — Purohit registration | Complete locally in English and all 22 Scheduled Indian languages |
 | 4 — Secure submission | Migration and Edge Function implemented and locally validated; production deployment requires Supabase project credentials |
 | 5 onward | Not started |
 
@@ -48,7 +48,7 @@ after authenticated, verified ownership of the same contact channel.
 
 - The canonical public registration URL is `/register-as-brahmin/`.
 - Registration is public and does not require an applicant account or login.
-- The first registration release supports English, Hindi, Gujarati, and Kannada
+- The first registration release supports English and all 22 Scheduled Indian languages
   simultaneously.
 - Geography remains generic for now; V0 does not assume or hard-code a pilot
   city, district, or state.
@@ -108,7 +108,7 @@ operate a small pilot without spreadsheets becoming the source of truth.
 
 ### Purohit applicant
 
-Opens `/register-as-brahmin/`, chooses English, Hindi, Gujarati, or Kannada,
+Opens `/register-as-brahmin/`, chooses any supported Indian language,
 completes a mobile-first guided form, reviews consent, submits once, and receives
 an application reference number plus realistic follow-up expectations. No
 applicant account or authentication is required. Draft progress is kept locally
@@ -212,16 +212,17 @@ revoked later. It never makes the private application record public.
 
 ### G. Localization
 
-Every public V0 journey launches in all four supported languages, including
+Every public V0 journey launches in English and all 22 Scheduled Indian languages, including
 consumer discovery, approved guide content, Panchang interface text, guest
 booking, Purohit registration, privacy, and optional sign-in:
 
 | Code | Language | Script |
 | --- | --- | --- |
 | `en` | English | Latin |
-| `hi` | Hindi | Devanagari |
-| `gu` | Gujarati | Gujarati |
-| `kn` | Kannada | Kannada |
+| `as`, `bn`, `mni` | Assamese, Bengali, Manipuri | Bengali-Assamese |
+| `brx`, `doi`, `hi`, `kok`, `mai`, `mr`, `ne`, `sa` | Bodo, Dogri, Hindi, Konkani, Maithili, Marathi, Nepali, Sanskrit | Devanagari |
+| `gu`, `kn`, `ml`, `or`, `pa`, `sat`, `ta`, `te` | Gujarati, Kannada, Malayalam, Odia, Punjabi, Santali, Tamil, Telugu | Respective native scripts |
+| `ks`, `sd`, `ur` | Kashmiri, Sindhi, Urdu | Perso-Arabic (right-to-left) |
 
 - Use the free/open-source `next-intl` library and checked-in ICU/JSON message
   files; no paid translation API is needed for V0.
@@ -231,8 +232,8 @@ booking, Purohit registration, privacy, and optional sign-in:
 - Show a visible language switcher and persist the selected language locally.
   Switching language must preserve entered form values.
 - Store `submission_locale` on the application and use it for staff follow-up.
-- English is the canonical source copy. Codex drafts and reviews Hindi, Gujarati,
-  and Kannada in the repository, including consent, privacy, identity, and
+- English is the canonical source copy. Codex drafts and reviews all supported catalogues
+  in the repository, including consent, privacy, identity, and
   submission language. Independent native-speaker review remains recommended
   before scaling beyond the pilot.
 - Use system fonts with appropriate script fallbacks initially and test on common
@@ -597,7 +598,7 @@ approved; implementation progress is summarized at the top of this document.
 - Review V0 boundaries, form fields, workflow, database/RLS proposal, and GitHub
   Pages split
 - Confirm that the form and service-area model remain geography-neutral
-- Review Codex-prepared English, Hindi, Gujarati, and Kannada catalogues
+- Review Codex-prepared English and all Scheduled Indian-language catalogues
 - Confirm which documents are acceptable during private verification
 - Confirm admin roles and who may approve/reject applications
 - Approve this plan or record revisions
@@ -628,7 +629,7 @@ approved; implementation progress is summarized at the top of this document.
 ### Checkpoint 3 - Purohit registration, local flow
 
 - Implement step-based React Hook Form with shared Zod schema
-- Implement English, Hindi, Gujarati, and Kannada message catalogues and a
+- Implement English and all Scheduled Indian-language message catalogues and a
   value-preserving language switcher
 - Add local draft save/clear with user notice
 - Implement fields, catalogue loading/fallback, review screen, consent, accessible

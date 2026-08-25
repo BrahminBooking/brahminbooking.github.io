@@ -152,6 +152,7 @@ h1, h2 { margin: 0; font-family: Georgia, "Noto Serif Devanagari", "Noto Serif G
 .consumer-header { position: relative; z-index: 20; border-bottom: 1px solid rgba(80, 48, 29, .16); background: rgba(247, 241, 229, .9); backdrop-filter: blur(14px); }
 .consumer-header__inner { width: min(1380px, calc(100% - 48px)); min-height: 86px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 32px; }
 .wordmark { width: fit-content; display: inline-flex; align-items: center; gap: 12px; }
+.wordmark, .reference-number { direction: ltr; }
 .wordmark__seal { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #8f3c24; border-radius: 50%; color: #762b1d; font-family: Georgia, serif; font-size: 22px; }
 .wordmark__copy strong, .wordmark__copy small { display: block; }
 .wordmark__copy strong { font-family: Georgia, "Noto Serif Devanagari", serif; font-size: 18px; font-weight: 600; letter-spacing: -.025em; }
@@ -374,6 +375,8 @@ h1, h2 { margin: 0; font-family: Georgia, "Noto Serif Devanagari", "Noto Serif G
 .panchang-hero__actions { display: flex; align-items: center; gap: 26px; margin-top: 34px; }
 .panchang-primary-cta { min-width: 205px; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 28px; border-radius: 999px; padding: 14px 19px 14px 23px; background: linear-gradient(135deg, #7f2d20, #a94325); color: #fffaf2; box-shadow: 0 18px 36px rgba(110, 39, 26, .2); font-size: 11px; font-weight: 850; letter-spacing: .055em; text-transform: uppercase; }
 .panchang-primary-cta b { width: 29px; height: 29px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.14); font-size: 15px; }
+[dir="rtl"] .panchang-primary-cta b, [dir="rtl"] .nav-book span { transform: scaleX(-1); }
+[dir="rtl"] input[type="email"], [dir="rtl"] input[type="tel"], [dir="rtl"] input[type="number"], [dir="rtl"] .reference-number { direction: ltr; text-align: left; }
 .panchang-secondary-cta { display: inline-flex; gap: 10px; border-bottom: 1px solid #b28c72; padding-bottom: 5px; color: #62483a; font-size: 10px; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
 .panchang-hero__reassurance { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 22px; color: #7c6658; font-size: 9px; font-weight: 750; letter-spacing: .04em; }
 .panchang-hero__reassurance span::first-letter { color: #4b7558; }

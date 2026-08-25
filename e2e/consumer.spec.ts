@@ -64,6 +64,21 @@ test('language choice translates the site and persists across public journeys', 
   await expect(page.getByRole('heading', { name: /ಪುರೋಹಿತ \/ ಬ್ರಾಹ್ಮಣರಾಗಿ ನೋಂದಾಯಿಸಿ/ })).toBeVisible()
 })
 
+test('all Scheduled Indian languages are selectable and RTL locales set document direction', async ({ page }) => {
+  await page.goto('/')
+  const language = page.locator('.consumer-language select')
+  await expect(language.locator('option')).toHaveCount(23)
+
+  await language.selectOption('ur')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ur')
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
+  await expect(page.getByRole('link', { name: /پروہت/ }).first()).toBeVisible()
+
+  await language.selectOption('bn')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'bn')
+  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
+})
+
 test('reduced motion keeps essential content visible without transforms', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')

@@ -1,0 +1,72 @@
+{
+  "content": {
+    "pujas": {
+      "griha-pravesh": {
+        "summary": "A family ceremony marking entry into a new home with prayer, purification and gratitude.",
+        "purpose": "Families commonly seek blessings for harmony, wellbeing and a considered beginning in the new space.",
+        "duration": "Typically 2–4 hours",
+        "setting": "At the new home",
+        "when": "The date and muhurta should be confirmed for the family, place and tradition.",
+        "preparations": ["A clean, accessible puja area", "Family gotra and sankalpa details if known", "Water, flowers, fruit and common puja vessels", "Building or society access arrangements"],
+        "confirmWithPurohit": ["Whether Vastu Shanti or Havan is included", "The final samagri list and who arranges it", "Regional and family-specific customs", "Travel, duration and dakshina expectations"],
+        "sourceNote": "General preparation guidance; the officiating Purohit confirms the final vidhi."
+      },
+      "satyanarayan-puja": {
+        "summary": "A widely observed worship of Bhagwan Vishnu, often undertaken in gratitude or around a family milestone.",
+        "purpose": "The puja centres devotion, truthfulness and gratitude, and commonly includes katha and prasad.",
+        "duration": "Typically 2–3 hours",
+        "setting": "Home or temple",
+        "when": "Often observed on a full-moon day or family-selected occasion; confirm locally.",
+        "preparations": ["A quiet, clean puja space", "Family names and sankalpa details", "Common offerings and prasad ingredients", "Seating for participants and katha"],
+        "confirmWithPurohit": ["Local katha and vidhi tradition", "Prasad preparation", "Samagri ownership", "Expected participant roles"],
+        "sourceNote": "General orientation only; practices vary by region and sampradaya."
+      },
+      "vivah-sanskar": {
+        "summary": "Hindu wedding rites conducted according to family, regional and sampradaya traditions.",
+        "purpose": "The ceremony solemnises a shared household and family responsibilities through sacred vows and witnessed rites.",
+        "duration": "Custom; often several hours",
+        "setting": "Home, temple or venue",
+        "when": "A family-specific muhurta and ceremony sequence must be established with the Purohit.",
+        "preparations": ["Both families’ tradition and gotra details", "Venue fire and access permissions", "A ceremony timeline shared with vendors", "Ritual materials confirmed well in advance"],
+        "confirmWithPurohit": ["Exact ceremony sequence", "Muhurta and location timezone", "Havan arrangements and safety", "Language and explanations for the couple"],
+        "sourceNote": "Wedding traditions vary materially; this guide is deliberately non-prescriptive."
+      },
+      "ganesh-puja": {
+        "summary": "Worship of Bhagwan Ganesha, commonly performed at the beginning of an undertaking or ceremony.",
+        "purpose": "A devotional beginning seeking clarity and the removal of obstacles.",
+        "duration": "Typically 1–2 hours",
+        "setting": "Home, office or temple",
+        "when": "Can accompany a new beginning; timing and sequence depend on context.",
+        "preparations": ["Clean puja surface", "Flowers, fruit and common offerings", "Purpose and names for sankalpa", "Any venue restrictions"],
+        "confirmWithPurohit": ["Whether Havan is required", "Tradition-specific offerings", "Samagri list", "Duration and language"],
+        "sourceNote": "Preparation summary reviewed for a cautious, general consumer introduction."
+      }
+    },
+    "festivals": {
+      "ganesh-chaturthi": {
+        "dateLabel": "Date varies by location and calendar convention",
+        "summary": "A celebration of Bhagwan Ganesha marked by worship, community gathering and devotional offerings.",
+        "significance": "The observance honours wisdom, auspicious beginnings and the removal of obstacles.",
+        "observances": ["Ganesh sthapana and puja", "Offerings such as modak according to family practice", "Aarti and community participation", "Visarjan according to the chosen observance period"],
+        "regionalNote": "Duration, tithi interpretation and visarjan practice vary. Confirm the local date and vidhi with a trusted calendar source and Purohit.",
+        "sourceNote": "General cultural orientation; no date is asserted by this static guide."
+      },
+      "navaratri": {
+        "dateLabel": "Nine-night observance; dates vary by tradition and location",
+        "summary": "Nine nights of devotion to the Divine Feminine, expressed through distinct regional and family traditions.",
+        "significance": "Navaratri honours forms of Devi and is observed through prayer, fasting, music, dance and community worship.",
+        "observances": ["Daily worship or recitation", "Fasting according to health and family custom", "Garba, dandiya or regional community traditions", "Kanya pujan or other family observances where customary"],
+        "regionalNote": "Sharad and Chaitra Navaratri, daily deity associations, fasting practice and culminating observances vary considerably.",
+        "sourceNote": "Intentionally broad to respect regional and sampradaya differences."
+      },
+      "diwali": {
+        "dateLabel": "Multi-day festival; dates and principal day vary regionally",
+        "summary": "A festival of light observed through worship, family gathering, generosity and renewal.",
+        "significance": "Meanings and associated narratives differ across regions and traditions, with light representing knowledge and hope.",
+        "observances": ["Cleaning and preparing the home", "Lighting diyas safely", "Family or temple worship", "Sharing food and gifts"],
+        "regionalNote": "The sequence, deities worshipped and calendar day used are not uniform across India. Confirm local practice.",
+        "sourceNote": "A non-exhaustive, plural description for discovery."
+      }
+    }
+  }
+}

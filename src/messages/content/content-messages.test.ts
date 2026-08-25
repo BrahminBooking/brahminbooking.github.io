@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { localeLabels, supportedLocales } from '../i18n/locales'
-import en from './en.json'
+import { localeLabels, supportedLocales } from '../../i18n/locales'
+import en from '../content-en.json'
 
 function leaves(value: unknown, prefix = ''): Record<string, string> {
   if (typeof value === 'string') return { [prefix]: value }
@@ -12,22 +12,22 @@ function leaves(value: unknown, prefix = ''): Record<string, string> {
 }
 
 function readCatalogue(locale: string) {
-  return JSON.parse(readFileSync(path.join(process.cwd(), 'src/messages', `${locale}.json`), 'utf8')) as unknown
+  return JSON.parse(readFileSync(path.join(process.cwd(), 'src/messages/content', `${locale}.json`), 'utf8')) as unknown
 }
 
 function placeholders(value: string) {
   return [...value.matchAll(/\{[^}]+\}/g)].map(([placeholder]) => placeholder).sort()
 }
 
-describe('registration message catalogues', () => {
+describe('guide content catalogues', () => {
   const canonicalLeaves = leaves(en)
-  const translatedLocales = supportedLocales.filter((locale) => locale !== 'en')
+  const generatedLocales = supportedLocales.filter((locale) => !['en', 'hi', 'gu', 'kn'].includes(locale))
 
-  it.each(translatedLocales)('%s contains every canonical translation key', (locale) => {
+  it.each(generatedLocales)('%s contains every English guide field', (locale) => {
     expect(Object.keys(leaves(readCatalogue(locale))).sort()).toEqual(Object.keys(canonicalLeaves).sort())
   })
 
-  it.each(translatedLocales)('%s preserves placeholders and has no empty messages', (locale) => {
+  it.each(generatedLocales)('%s preserves placeholders and has no empty content', (locale) => {
     const translatedLeaves = leaves(readCatalogue(locale))
     for (const [path, source] of Object.entries(canonicalLeaves)) {
       expect(translatedLeaves[path]?.trim(), `${localeLabels[locale]}: ${path}`).not.toBe('')

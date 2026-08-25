@@ -1,5 +1,3 @@
-import type { SupportedLocale } from '@/i18n/config'
-
 export type PujaTranslation = {
   summary: string; purpose: string; duration: string; setting: string; when: string
   preparations: string[]; confirmWithPurohit: string[]; sourceNote: string
@@ -9,7 +7,7 @@ export type FestivalTranslation = {
   dateLabel: string; summary: string; significance: string; observances: string[]; regionalNote: string; sourceNote: string
 }
 
-type TranslatedLocale = Exclude<SupportedLocale, 'en'>
+type TranslatedLocale = 'hi' | 'gu' | 'kn'
 
 export const localizedPujas: Record<TranslatedLocale, Record<string, PujaTranslation>> = {
   hi: {
