@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { approvedPujaGuides } from '@/content/pujas'
+import { PlaceSearchInput } from '@/components/PlaceSearchInput'
 import { track } from '@/lib/analytics'
 import { bookingRequestSchema, type BookingRequestValues } from './schema'
 import { saveReceipt, submitBookingRequest } from './submit'
@@ -73,7 +74,7 @@ export function BookingForm() {
 
     <div className="booking-section"><div className="booking-section__number">02</div><div className="booking-section__content">
       <h2>{t('book.preferences')}</h2><p>{t('book.preferencesCopy')}</p>
-      <div className="booking-pair"><label className="booking-field"><span>{t('book.city')} <b>*</b></span><input {...register('city')} autoComplete="address-level2" />{errorFor('city')}</label><label className="booking-field"><span>{t('book.area')} <b>*</b></span><input {...register('area')} autoComplete="address-level3" />{errorFor('area')}</label></div>
+      <div className="booking-pair"><label className="booking-field"><span>{t('book.city')} <b>*</b></span><PlaceSearchInput {...register('city')} autoComplete="address-level2" />{errorFor('city')}</label><label className="booking-field"><span>{t('book.area')} <b>*</b></span><input {...register('area')} autoComplete="address-level3" />{errorFor('area')}</label></div>
       <div className="booking-pair"><label className="booking-field"><span>{t('book.setting')} <b>*</b></span><select {...register('serviceMode')}><option value="home">{t('book.home')}</option><option value="temple">{t('book.temple')}</option><option value="remote">{t('book.remote')}</option><option value="unsure">{t('book.notSure')}</option></select></label><label className="booking-field"><span>{t('book.time')} <b>*</b></span><select {...register('timeWindow')}><option value="morning">{t('book.morning')}</option><option value="afternoon">{t('book.afternoon')}</option><option value="evening">{t('book.evening')}</option><option value="flexible">{t('book.discuss')}</option></select></label></div>
       <div className="booking-pair"><label className="booking-field"><span>{t('book.ritualLanguage')} <b>*</b></span><select {...register('language')}><option value="">{t('common.choose')}</option><option value="hindi">हिंदी</option><option value="kannada">ಕನ್ನಡ</option><option value="gujarati">ગુજરાતી</option><option value="sanskrit">संस्कृत</option><option value="english">English</option><option value="other">{t('book.anotherLanguage')}</option></select>{errorFor('language')}</label><label className="booking-field"><span>{t('book.samagri')} <b>*</b></span><select {...register('samagriAssistance')}><option value="all">{t('book.allSamagri')}</option><option value="some">{t('book.someSamagri')}</option><option value="none">{t('book.familyArranges')}</option><option value="unsure">{t('book.notSure')}</option></select></label></div>
       <div className="booking-pair"><label className="booking-field"><span>{t('book.tradition')} <em>{t('common.optional')}</em></span><input {...register('tradition')} /></label><label className="booking-field"><span>{t('book.attendees')} <em>{t('common.optional')}</em></span><input {...register('attendeeCount')} inputMode="numeric" />{errorFor('attendeeCount')}</label></div>

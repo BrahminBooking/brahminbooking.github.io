@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { cloneElement, useEffect, useId, useMemo, useState } from 'react'
 import { useForm, type FieldError, type FieldErrors, type Path, type UseFormRegister } from 'react-hook-form'
+import { PlaceSearchInput } from '@/components/PlaceSearchInput'
 import {
   formSteps,
   languageOptions,
@@ -50,7 +51,7 @@ export function RegistrationForm({ locale, localeLabels, onLocaleChange }: Regis
     defaultValues: defaultRegistrationValues,
     mode: 'onBlur',
   })
-  const { register, watch, trigger, handleSubmit, reset, formState: { errors, isSubmitting } } = form
+  const { register, watch, trigger, handleSubmit, reset, setValue, formState: { errors, isSubmitting } } = form
   const aadhaarAvailable = watch('aadhaarAvailable')
   const tradition = watch('tradition')
   const currentStep = formSteps[stepIndex]
@@ -177,7 +178,7 @@ export function RegistrationForm({ locale, localeLabels, onLocaleChange }: Regis
 
             {currentStep === 'location' && (
               <Step title={t('sections.locationTitle')} description={t('sections.locationDescription')}>
-                <InputField label={t('fields.city')} required error={fieldError(errors, 'city', t)}><input autoComplete="address-level2" {...register('city')} /></InputField>
+                <InputField label={t('fields.city')} required error={fieldError(errors, 'city', t)}><PlaceSearchInput autoComplete="address-level2" {...register('city')} onPlaceSelect={(place) => { setValue('district', place.district, { shouldDirty: true, shouldValidate: true }); setValue('state', place.state, { shouldDirty: true, shouldValidate: true }) }} /></InputField>
                 <div className="field-grid">
                   <InputField label={t('fields.district')} required error={fieldError(errors, 'district', t)}><input {...register('district')} /></InputField>
                   <InputField label={t('fields.state')} required error={fieldError(errors, 'state', t)}><input autoComplete="address-level1" {...register('state')} /></InputField>

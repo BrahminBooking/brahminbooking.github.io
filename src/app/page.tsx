@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Reveal } from '@/components/Reveal'
 import { JsonLd } from '@/components/JsonLd'
+import { PlaceSearchInput } from '@/components/PlaceSearchInput'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 import { approvedPujaGuides } from '@/content/pujas'
@@ -38,7 +39,7 @@ export default function HomePage() {
           <div><p className="section-kicker"><T id="home.finderKicker" /></p><h2 id="service-finder-title"><T id="home.finderTitle" /></h2></div>
           <form action="/book/" method="get">
             <label><span><T id="home.ceremony" /></span><select name="puja" defaultValue=""><option value="">Choose one</option>{approvedPujaGuides.map((guide) => <option value={guide.slug} key={guide.slug}>{guide.name}</option>)}</select></label>
-            <label><span><T id="home.city" /></span><input name="city" /></label>
+            <label><span><T id="home.city" /></span><PlaceSearchInput name="city" autoComplete="address-level2" /></label>
             <label><span><T id="home.date" /></span><input name="date" type="date" /></label>
             <label><span><T id="home.language" /></span><select name="language" defaultValue=""><option value="">—</option><option value="hindi">हिंदी</option><option value="kannada">ಕನ್ನಡ</option><option value="gujarati">ગુજરાતી</option><option value="english">English</option></select></label>
             <button type="submit"><T id="home.bookPurohit" /> <span aria-hidden="true">→</span></button>

@@ -44,6 +44,25 @@ test('mobile navigation and keyboard focus remain usable', async ({ page }) => {
   await expect(page.locator(':focus')).toBeVisible()
 })
 
+test('place search works in booking and registration without restricting free-form entries', async ({ page }) => {
+  await page.goto('/book/')
+  const bookingCity = page.getByLabel('City or town')
+  const bookingList = await bookingCity.getAttribute('list')
+  expect(bookingList).toBeTruthy()
+  await expect(page.locator(`#${bookingList} option[value="Bengaluru"]`)).toHaveCount(1)
+  await bookingCity.fill('A village outside the catalogue')
+  await expect(bookingCity).toHaveValue('A village outside the catalogue')
+
+  await page.goto('/register-as-brahmin/')
+  await page.getByLabel('Full name').fill('Acharya Test Sharma')
+  await page.getByLabel('Mobile number').fill('+91 90000 00000')
+  await page.getByRole('button', { name: 'Continue' }).click()
+  const registrationCity = page.getByLabel('City / town / village')
+  await registrationCity.fill('Bengaluru')
+  await expect(page.locator('input[name="district"]')).toHaveValue('Bengaluru Urban')
+  await expect(page.locator('input[name="state"]')).toHaveValue('Karnataka')
+})
+
 test('language choice translates the site and persists across public journeys', async ({ page }) => {
   await page.goto('/')
   const language = page.locator('.consumer-language select')
