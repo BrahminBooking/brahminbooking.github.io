@@ -18,8 +18,9 @@ live Panchang provider still require external configuration and approval.
 4. **Editorial catalogues — complete for initial seed.** Approved puja and
    festival collections, generated static detail routes, review/source metadata,
    and indexing restricted to approved content.
-5. **Guest booking request — complete in code.** Four-part form, Zod validation,
-   review step, optional post-submit sign-in, private request receipt and demo
+5. **Guest booking request — complete in code.** Four-step progressive form,
+   Zod validation, non-sensitive device-local planning draft, review step,
+   optional post-submit sign-in architecture, private request receipt and demo
    adapter used only by automated tests.
 6. **Supabase security — complete in migration/function code.** Private request,
    history, rate-limit and one-time claim tables; default-deny RLS; service-role
@@ -30,7 +31,8 @@ live Panchang provider still require external configuration and approval.
 8. **Automated verification — complete.** Unit, validation, content-state,
    provider, timezone/freshness, analytics and Chromium E2E coverage at the five
    required widths.
-9. **Production activation — pending external setup.** Apply Supabase migration,
-   deploy Edge Function, configure keys/origins/auth redirect, replace fixtures
-   only after Panchang expert acceptance, run connected-browser/manual-device
-   visual and accessibility review, then deploy the branch.
+9. **Production activation — in progress.** The operator reports that the
+   Supabase migrations are applied. Both Edge Functions still require a
+   separate Supabase deployment because their public endpoints return 404.
+   Replace Panchang fixtures only after expert acceptance and complete
+   connected-browser/manual-device visual and accessibility review.

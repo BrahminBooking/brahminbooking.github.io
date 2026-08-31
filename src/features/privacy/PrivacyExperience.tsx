@@ -13,6 +13,7 @@ export function PrivacyExperience() {
 function PrivacyNotice({ locale, onLocaleChange }: { locale: SupportedLocale; onLocaleChange: (locale: SupportedLocale) => void }) {
   const t = useTranslations('privacy')
   const registration = useTranslations('registration')
+  const site = useTranslations('site')
 
   return (
     <main className="page-shell privacy-shell">
@@ -27,8 +28,15 @@ function PrivacyNotice({ locale, onLocaleChange }: { locale: SupportedLocale; on
         <p className="privacy-intro">{t('intro')}</p>
         <section><h2>{t('collectTitle')}</h2><p>{t('collectBody')}</p></section>
         <section><h2>{t('useTitle')}</h2><p>{t('useBody')}</p></section>
+        <section>
+          <h2>{site('book.pageKicker')}</h2>
+          <p>{site('book.contactCopy')} {site('book.preferencesCopy')} {site('book.whatsappCopy')} {site('book.reviewCopy')}</p>
+        </section>
         <section><h2>{t('accessTitle')}</h2><p>{t('accessBody')}</p></section>
-        <Link className="button button-primary" href="/register-as-brahmin/">← {t('return')}</Link>
+        <div className="privacy-actions">
+          <Link className="button button-primary" href="/book/">{site('book.submit')} <span aria-hidden="true">→</span></Link>
+          <Link className="button button-secondary" href="/register-as-brahmin/">{t('return')}</Link>
+        </div>
       </article>
     </main>
   )

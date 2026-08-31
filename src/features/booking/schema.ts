@@ -25,4 +25,22 @@ export const bookingRequestSchema = z.object({
   if (!values.preferredDate && !values.dateFlexible) context.addIssue({ code: 'custom', path: ['preferredDate'], message: 'Choose a date or mark it flexible.' })
 })
 
+// Only ceremony-planning preferences are persisted on the device. Contact
+// details, notes, consent and the honeypot are intentionally excluded.
+export const bookingDraftSchema = z.object({
+  serviceSlug: z.string().max(80).optional(),
+  serviceOther: z.string().max(120).optional(),
+  preferredDate: z.string().max(10).optional(),
+  dateFlexible: z.boolean().optional(),
+  timeWindow: z.enum(['morning', 'afternoon', 'evening', 'flexible']).optional(),
+  city: z.string().max(100).optional(),
+  area: z.string().max(160).optional(),
+  serviceMode: z.enum(['home', 'temple', 'remote', 'unsure']).optional(),
+  language: z.string().max(40).optional(),
+  tradition: z.string().max(120).optional(),
+  samagriAssistance: z.enum(['all', 'some', 'none', 'unsure']).optional(),
+  attendeeCount: z.string().max(4).optional(),
+}).strict()
+
 export type BookingRequestValues = z.infer<typeof bookingRequestSchema>
+export type BookingDraftValues = z.infer<typeof bookingDraftSchema>

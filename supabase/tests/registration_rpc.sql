@@ -55,16 +55,25 @@ select * from public.create_purohit_application(
   'test-fingerprint'
 );
 
--- An idempotent retry must return the same application without a second insert.
-select * from public.create_purohit_application(
-  $payload${
-    "fullName": "Acharya Ramesh Sharma",
-    "phone": "+91 98765 43210"
-  }$payload$::jsonb,
-  'en',
-  '018f0ec9-7b5a-7ee2-8a90-11f651a6cd2b'::uuid,
-  'test-fingerprint'
-);
+-- Every reviewed UI locale must pass the database trust boundary. Reusing the
+-- idempotency key proves this without creating duplicate applications.
+do $$
+declare
+  test_locale text;
+begin
+  foreach test_locale in array array[
+    'en', 'as', 'bn', 'brx', 'doi', 'gu', 'hi', 'kn', 'ks', 'kok', 'mai',
+    'ml', 'mni', 'mr', 'ne', 'or', 'pa', 'sa', 'sat', 'sd', 'ta', 'te'
+  ] loop
+    perform * from public.create_purohit_application(
+      '{"fullName":"Idempotent locale check","phone":"+91 98765 43210"}'::jsonb,
+      test_locale,
+      '018f0ec9-7b5a-7ee2-8a90-11f651a6cd2b'::uuid,
+      'test-fingerprint'
+    );
+  end loop;
+end;
+$$;
 
 reset role;
 

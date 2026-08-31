@@ -10,6 +10,13 @@ test('all V0 routes are reachable from the static export', async ({ page }) => {
   }
 })
 
+test('privacy notice covers private guest requests', async ({ page }) => {
+  await page.goto('/privacy/')
+  await expect(page.getByRole('heading', { name: 'Guest request' })).toBeVisible()
+  await expect(page.getByText('Your details remain private', { exact: false })).toBeVisible()
+  await expect(page.getByRole('link', { name: /Request booking/ })).toHaveAttribute('href', '/book/')
+})
+
 test('guest can submit a booking request without authentication', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('link', { name: /View full Panchang/i }).click()
@@ -19,11 +26,14 @@ test('guest can submit a booking request without authentication', async ({ page 
   await page.getByRole('link', { name: /Request a Purohit/ }).click()
   await expect(page.getByLabel('Ceremony or service')).toHaveValue('griha-pravesh')
   await page.getByLabel('My date is flexible').check()
+  await page.getByRole('button', { name: 'Continue' }).click()
   await page.getByLabel('City or town').fill('Bengaluru')
   await page.getByLabel('Locality or area').fill('Jayanagar')
   await page.getByLabel('Preferred ritual language').selectOption('kannada')
+  await page.getByRole('button', { name: 'Continue' }).click()
   await page.getByLabel('Your name').fill('Test Devotee')
   await page.getByLabel('Mobile number').fill('+91 90000 00000')
+  await page.getByRole('button', { name: 'Continue' }).click()
   await page.getByLabel(/I consent to BrahminBooking/).check()
   await page.getByRole('button', { name: /Request booking/ }).click()
   await expect(page).toHaveURL(/\/booking\/requested\/$/)
@@ -46,6 +56,9 @@ test('mobile navigation and keyboard focus remain usable', async ({ page }) => {
 
 test('place search works in booking and registration without restricting free-form entries', async ({ page }) => {
   await page.goto('/book/')
+  await page.getByLabel('Ceremony or service').selectOption('griha-pravesh')
+  await page.getByLabel('My date is flexible').check()
+  await page.getByRole('button', { name: 'Continue' }).click()
   const bookingCity = page.getByLabel('City or town')
   const bookingList = await bookingCity.getAttribute('list')
   expect(bookingList).toBeTruthy()
@@ -63,6 +76,25 @@ test('place search works in booking and registration without restricting free-fo
   await expect(page.locator('input[name="state"]')).toHaveValue('Karnataka')
 })
 
+test('booking planning progress survives a refresh without storing contact details', async ({ page }) => {
+  await page.goto('/book/')
+  await page.getByLabel('Ceremony or service').selectOption('griha-pravesh')
+  await page.getByLabel('My date is flexible').check()
+  await page.getByRole('button', { name: 'Continue' }).click()
+  await page.getByLabel('City or town').fill('Bengaluru')
+  await page.getByLabel('Locality or area').fill('Jayanagar')
+  await expect.poll(() => page.evaluate(() => window.localStorage.getItem('brahminbooking:booking-draft:v1'))).toContain('Bengaluru')
+
+  await page.reload()
+  await expect(page.getByLabel('Ceremony or service')).toHaveValue('griha-pravesh')
+  await page.getByRole('button', { name: 'Continue' }).click()
+  await expect(page.getByLabel('City or town')).toHaveValue('Bengaluru')
+  await expect(page.getByLabel('Locality or area')).toHaveValue('Jayanagar')
+  const draft = await page.evaluate(() => window.localStorage.getItem('brahminbooking:booking-draft:v1'))
+  expect(draft).not.toContain('phone')
+  expect(draft).not.toContain('email')
+})
+
 test('language choice translates the site and persists across public journeys', async ({ page }) => {
   await page.goto('/')
   const language = page.locator('.consumer-language select')
@@ -73,7 +105,7 @@ test('language choice translates the site and persists across public journeys', 
 
   await page.goto('/book/')
   await expect(page.getByRole('heading', { name: /बातचीत शुरू करें/ })).toBeVisible()
-  await expect(page.getByLabel(/शहर या कस्बा/)).toBeVisible()
+  await expect(page.getByLabel(/संस्कार या सेवा/)).toBeVisible()
 
   await page.locator('.consumer-language select').selectOption('gu')
   await expect(page.getByRole('heading', { name: /વાતચીત શરૂ કરો/ })).toBeVisible()
