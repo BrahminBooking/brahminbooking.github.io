@@ -1,15 +1,26 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { supabase } from '@/lib/supabase/client'
+import { apiBaseUrl, apiRequest } from '@/lib/api/client'
+import { captureSessionFragment } from '@/lib/api/session'
 
 export function AuthExperience() {
   const t = useTranslations('site')
   const [email, setEmail] = useState('')
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  useEffect(() => {
+    if (!apiBaseUrl) return
+    void captureSessionFragment().catch(() => { setState('error') })
+  }, [])
   const submit = async (event: FormEvent) => {
-    event.preventDefault(); if (!supabase) { setState('error'); return }; setState('sending')
+    event.preventDefault(); setState('sending')
+    if (apiBaseUrl) {
+      try { await apiRequest('/v1/auth/email', { email }); setState('sent') } catch { setState('error') }
+      return
+    }
+    if (!supabase) { setState('error'); return }
     const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${window.location.origin}/auth/` } })
     setState(error ? 'error' : 'sent')
   }

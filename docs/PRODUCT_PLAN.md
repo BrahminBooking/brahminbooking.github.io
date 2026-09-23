@@ -763,3 +763,19 @@ Avoid vanity marketplace metrics while early consumer bookings remain manually c
 
 These answers affect configuration and policy, but none prevents review of the
 overall architecture.
+
+## Approved architecture change — 23 September 2026
+
+The next implementation phase replaces Supabase PostgreSQL and Edge Function
+business logic with a standalone Go API and Oracle managed MySQL. The static
+frontend remains separate; it never accesses MySQL directly. Runtime and
+migration credentials are separate, TLS is verified, and former RLS boundaries
+are enforced explicitly in Go. Supabase Auth is temporarily retained behind an
+adapter. Staging deployment is approved in two repositories; production deployment
+and live-data migration remain prohibited. The Pages site is the staging frontend.
+The standalone private `BrahminBooking/brahminbooking-api` repository owns backend
+code, migrations, API documentation and CI/CD. Staging must use only the dedicated
+`brahminbooking_staging` database and credentials, never `brahminbooking`/`bb_app`.
+This supersedes earlier backend-specific recommendations above. See
+[GO_MYSQL_MIGRATION.md](GO_MYSQL_MIGRATION.md) for the repository inventory,
+implemented API, schema conversion, rehearsal, deployment and rollback procedure.

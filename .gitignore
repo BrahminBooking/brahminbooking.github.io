@@ -10,3 +10,8 @@ test-results/
 .DS_Store
 *.tsbuildinfo
 supabase/.temp/
+backend/bin/
+backend/.env*
+!backend/.env.example
+backend/snapshots/
+*.snapshot.json

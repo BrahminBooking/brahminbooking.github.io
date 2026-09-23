@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
+import { apiBaseUrl, apiRequest } from '@/lib/api/client'
 import type { BookingRequestValues } from './schema'
 
 const IDEMPOTENCY_KEY = 'brahminbooking:booking-idempotency:v1'
@@ -17,9 +18,18 @@ export async function submitBookingRequest(values: BookingRequestValues): Promis
     await new Promise((resolve) => window.setTimeout(resolve, 350))
     return { reference: `BB-DEMO-${crypto.randomUUID().slice(0, 8).toUpperCase()}`, expectedResponse: 'within one working day' }
   }
-  if (!supabase) throw new Error('serviceUnavailable')
-  const { data, error } = await supabase.functions.invoke('submit-booking-request', { body: { idempotencyKey: idempotencyKey(), payload: values } })
-  if (error || !data?.reference) throw new Error('submissionFailed')
+  const body = { idempotencyKey: idempotencyKey(), payload: values }
+  let data: BookingReceipt
+  if (apiBaseUrl) {
+    data = await apiRequest<BookingReceipt>('/v1/booking-requests', body)
+  } else {
+    // Legacy release path until an explicitly configured cutover build.
+    if (!supabase) throw new Error('serviceUnavailable')
+    const result = await supabase.functions.invoke('submit-booking-request', { body })
+    if (result.error) throw new Error('submissionFailed')
+    data = result.data
+  }
+  if (!data?.reference) throw new Error('submissionFailed')
   window.sessionStorage.removeItem(IDEMPOTENCY_KEY)
   return { reference: data.reference, expectedResponse: data.expectedResponse ?? 'within one working day' }
 }

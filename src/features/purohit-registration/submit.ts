@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
+import { apiBaseUrl, apiRequest } from '@/lib/api/client'
 import type { PurohitRegistrationValues } from './schema'
 
 const IDEMPOTENCY_KEY = 'brahminbooking-registration-idempotency'
@@ -19,18 +20,21 @@ export async function submitPurohitRegistration(
   values: PurohitRegistrationValues,
   locale: string,
 ): Promise<SubmissionReceipt> {
-  if (!supabase) throw new Error('serviceUnavailable')
-
-  const { data, error } = await supabase.functions.invoke('submit-application', {
-    body: {
+  const body = {
       applicationType: 'purohit',
       submissionLocale: locale,
       idempotencyKey: getIdempotencyKey(),
       payload: values,
-    },
-  })
-
-  if (error) throw new Error('submissionFailed')
+  }
+  let data: SubmissionReceipt
+  if (apiBaseUrl) {
+    data = await apiRequest<SubmissionReceipt>('/v1/applications/purohit', body)
+  } else {
+    if (!supabase) throw new Error('serviceUnavailable')
+    const result = await supabase.functions.invoke('submit-application', { body })
+    if (result.error) throw new Error('submissionFailed')
+    data = result.data
+  }
   if (!data?.applicationNumber) throw new Error('invalidReceipt')
 
   window.sessionStorage.removeItem(IDEMPOTENCY_KEY)
