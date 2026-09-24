@@ -311,6 +311,19 @@ h1, h2 { margin: 0; font-family: Georgia, "Noto Serif Devanagari", "Noto Serif G
 .location-controls select { min-width: 230px; border: 1px solid #bba284; padding: 12px 36px 12px 12px; background: #fffaf0; color: #39271e; }
 .location-controls button { min-height: 42px; border: 1px solid #7f3423; padding: 10px 15px; background: transparent; color: #762b1d; cursor: pointer; font-size: 10px; font-weight: 800; }
 .date-navigation { display: flex; justify-content: space-between; gap: 1px; margin-top: 26px; background: #c6b294; }.date-navigation button { min-height: 44px; flex: 1; border: 0; padding: 10px; background: #f3eadb; color: #6f5749; cursor: pointer; font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }.date-navigation button:hover { background: #fffaf0; }
+.live-panchang { min-width: 0; overflow-wrap: anywhere; }
+.live-panchang label { display: block; margin: 14px 0 7px; font-weight: 600; }
+.live-panchang select { width: 100%; max-width: 100%; min-height: 48px; border: 1px solid #c8b393; border-radius: 12px; padding: 12px; background: #fffaf0; color: #492d20; font: inherit; }
+.live-panchang p { margin-block: 14px; line-height: 1.6; }
+.live-panchang__notice { padding: 12px; background: #f9e8cf; border-inline-start: 3px solid #9d5525; border-radius: 6px; font-size: 13px; }
+.live-panchang__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-block: 22px; }
+.live-panchang__facts > div { padding: 14px 8px; border-bottom: 1px solid #e6d5bd; min-width: 0; }
+.live-panchang__facts dt { color: #755d4d; font-size: 12px; }
+.live-panchang__facts dd { margin: 6px 0 0; font-family: Georgia, serif; font-size: clamp(17px, 2vw, 23px); }
+.live-panchang__facts small { display: block; margin-top: 8px; font: 12px/1.5 system-ui, sans-serif; color: #755d4d; }
+.live-panchang__source { border-top: 1px solid #c8b393; padding-top: 16px; font-size: 12px; }
+.live-panchang__source p { margin-block: 5px; }
+.live-panchang__source a { text-decoration: underline; font-weight: 700; }
 .panchang-result { position: relative; min-height: 500px; margin-top: 26px; border: 1px solid #c8b393; padding: clamp(24px, 5vw, 62px); background: #fffaf0; box-shadow: 0 28px 70px rgba(69, 42, 24, .08); }
 .fixture-banner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin: calc(clamp(24px, 5vw, 62px) * -1) calc(clamp(24px, 5vw, 62px) * -1) 46px; padding: 11px 16px; background: #82402c; color: #fff7ea; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
 .panchang-result__heading { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d1bea3; padding-bottom: 38px; }

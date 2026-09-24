@@ -8,7 +8,7 @@ export default defineConfig({
   reporter: process.env.CI ? 'github' : 'list',
   use: { baseURL: 'http://127.0.0.1:3100', trace: 'retain-on-failure', screenshot: 'only-on-failure' },
   webServer: {
-    command: 'NEXT_PUBLIC_DEMO_MODE=true npm run build && cd out && python3 -m http.server 3100 --bind 127.0.0.1',
+    command: 'NEXT_PUBLIC_DEMO_MODE=true NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:3100/mock-api npm run build && cd out && python3 -m http.server 3100 --bind 127.0.0.1',
     url: 'http://127.0.0.1:3100',
     timeout: 120_000,
     reuseExistingServer: !process.env.CI,

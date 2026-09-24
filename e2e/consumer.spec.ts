@@ -154,12 +154,14 @@ test('homepage Panchang empty state and booking CTA are usable', async ({ page }
   const primaryCta = page.getByRole('link', { name: 'Book a Purohit', exact: true }).first()
   await expect(primaryCta).toHaveAttribute('href', '/book/')
 
+  await page.getByLabel('Choose a city').selectOption('bengaluru')
   await expect(page.getByRole('heading', { name: 'Panchang is unavailable' })).toBeVisible()
   await expect(page.getByText(/never replace a failed result with fabricated data/)).toBeVisible()
 })
 
 test('Panchang never exposes fixture guidance in production UI', async ({ page }) => {
   await page.goto('/panchang/')
+  await page.getByLabel('Choose a city').selectOption('bengaluru')
   await expect(page.getByRole('heading', { name: 'Panchang is unavailable' })).toBeVisible()
   await expect(page.getByText('Development fixture', { exact: true })).toHaveCount(0)
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
