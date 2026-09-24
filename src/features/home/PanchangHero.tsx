@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'motion/react'
 import { useTranslations } from 'next-intl'
+import { LivePanchang } from '../panchang/LivePanchang'
 
 export function PanchangHero() {
   const t = useTranslations('site')
@@ -22,11 +23,8 @@ export function PanchangHero() {
         </div>
         <div className="panchang-hero__reassurance" aria-label={t('home.bookingReassurance')}><span>✓ {t('home.noAccount')}</span><span>✓ {t('home.humanCoordinated')}</span></div>
       </motion.div>
-      <motion.aside id="today" className="panchang-daily panchang-daily--empty" aria-label={t('panchang.unavailable')} initial={reduceMotion ? false : { opacity: 0, y: 30, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .75, delay: .12, ease: [0.22, 1, .36, 1] }}>
-        <div className="panchang-empty-symbol" aria-hidden="true"><span>☼</span></div>
-        <p className="section-kicker">{t('home.todayPanchang')}</p>
-        <h2>{t('panchang.unavailable')}</h2>
-        <p>{t('panchang.unavailableCopy')}</p>
+      <motion.aside id="today" className="panchang-daily" aria-label={t('home.todayPanchang')} initial={reduceMotion ? false : { opacity: 0, y: 30, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .75, delay: .12, ease: [0.22, 1, .36, 1] }}>
+        <LivePanchang compact />
         <div className="panchang-empty-actions"><Link href="/book/">{t('home.bookPurohit')} <span aria-hidden="true">→</span></Link><Link href="/panchang/">{t('home.exploreDetails')}</Link></div>
       </motion.aside>
     </section>

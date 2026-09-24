@@ -1,5 +1,6 @@
 {
   "site": {
+    "astronomicalPreview": "Astronomical preview · Religious review pending. Not guidance for ritual decisions.",
     "language": "Website language",
     "brandTagline": "Trusted Hindu services",
     "nav": { "today": "Today", "panchang": "Panchang", "pujas": "Pujas", "temples": "Temples", "how": "How it works", "join": "Join as Purohit", "signIn": "Sign in", "book": "Book a Purohit", "bookShort": "Book", "account": "Account" },
