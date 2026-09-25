@@ -779,3 +779,28 @@ code, migrations, API documentation and CI/CD. Staging must use only the dedicat
 This supersedes earlier backend-specific recommendations above. See
 [GO_MYSQL_MIGRATION.md](GO_MYSQL_MIGRATION.md) for the repository inventory,
 implemented API, schema conversion, rehearsal, deployment and rollback procedure.
+# Approved authentication scope update — 25 September 2026
+
+This update supersedes earlier optional-auth/anonymous-submission rules elsewhere in this document.
+Firebase Authentication replaces Supabase Auth; the Go API and MySQL remain.
+Use Google and verified email/password only, with no phone authentication,
+Firestore or newly added Analytics. Browsing and form preparation remain public;
+booking submission requires an active, email-verified account. Purohit
+registration remains anonymous (confirmed in the follow-up approval). Its email
+creates a pending applicant profile with email_verified=false, not a Firebase
+account or approved provider. A later authenticated user may explicitly claim
+the pending profile only with matching email ownership verified by Firebase.
+Pending applicant profiles must not be silently merged with legacy identities
+or existing authenticated accounts. Email verification is not Purohit approval.
+
+MySQL is authoritative for internal identity, onboarding, controlled staff
+membership, application state and separate provider suspension. Every active
+account retains customer capability. Provider mode is presentation only and
+requires current backend-approved permissions. Preserve legacy IDs and records;
+link Firebase identities only through operator-reviewed mappings, never matching
+client-supplied emails. Migrate staging only; production configuration is prepared
+but production data and traffic are out of scope.
+
+Priority now: authentication, persistent users/onboarding and authorization.
+Next: review and simplify the existing Purohit form before changing its fields.
+Panchang presentation/default Delhi and festival/puja changes are deferred.

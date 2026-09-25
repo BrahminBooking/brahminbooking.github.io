@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { localeLabels, supportedLocales, type SupportedLocale } from '@/i18n/config'
 import { useSiteLocale } from '@/i18n/SiteLocaleProvider'
+import { authNotices } from '@/features/auth/notices'
 
 export function PrivacyExperience() {
   const { locale, setLocale } = useSiteLocale()
@@ -30,7 +31,7 @@ function PrivacyNotice({ locale, onLocaleChange }: { locale: SupportedLocale; on
         <section><h2>{t('useTitle')}</h2><p>{t('useBody')}</p></section>
         <section>
           <h2>{site('book.pageKicker')}</h2>
-          <p>{site('book.contactCopy')} {site('book.preferencesCopy')} {site('book.whatsappCopy')} {site('book.reviewCopy')}</p>
+          <p>{authNotices[locale][0]} {site('book.preferencesCopy')} {site('book.whatsappCopy')} {site('book.reviewCopy')}</p>
         </section>
         <section><h2>{t('accessTitle')}</h2><p>{t('accessBody')}</p></section>
         <div className="privacy-actions">

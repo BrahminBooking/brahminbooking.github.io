@@ -1,0 +1,19 @@
+---
+description: Approved Firebase authentication and anonymous Purohit registration boundaries
+alwaysApply: true
+---
+
+# Authentication scope (approved September 2026)
+
+- Firebase Auth replaces Supabase Auth; MySQL and the Go API own users and permissions.
+- Google is primary; email/password supports verification/reset. Never add phone authentication.
+- Keep public browsing and `/register-as-brahmin/` accessible without login.
+- Anonymous registration creates an unverified pending applicant profile, not a Firebase account.
+- Verified Firebase email ownership permits an explicit profile claim; claiming never approves a Purohit.
+- Booking submission requires an active account and server-verified email.
+- Every active account has customer capability; provider approval/suspension is separate from whole-account status.
+- Admin privileges are database controlled. Never derive them from signup intent or client fields.
+- Preserve internal IDs and old relationships. Legacy account mappings require operator-reviewed evidence.
+- Staging Firebase project is `brahminbooking-staging`; production is `brahminbooking`.
+- Keep KRIPA service credentials separate. Never bundle Firebase Admin credentials in Pages.
+- Deploy this phase to staging only; registration-form simplification and Panchang presentation are later priorities.
