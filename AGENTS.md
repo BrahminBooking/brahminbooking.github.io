@@ -1,5 +1,19 @@
 # BrahminBooking Project Rules
 
+## Approved Auth Architecture — September 2026
+
+This section supersedes historical Supabase runtime and optional booking-auth
+rules below. The frontend remains statically exported to GitHub Pages. The Go
+API owns MySQL access and authorization; Firebase owns Google/email-password
+identity. Do not add Firestore or Firebase Analytics. MySQL owns UUIDs, onboarding,
+staff membership and Purohit approval. Booking submission requires an active,
+email-verified account. Browsing and `/register-as-brahmin/` remain anonymous.
+Registration email creates only an unverified pending profile; verified matching
+email allows an explicit claim, never automatic provider approval or account merge.
+Keep provider suspension separate from account suspension. Admins are explicitly
+provisioned, never inferred from signup intent or user-editable claims.
+Deploy staging only unless production deployment is separately authorized.
+
 These rules apply to the entire repository. More specific `AGENTS.md` files may
 add local rules but must not weaken the product, privacy, or security constraints
 below.

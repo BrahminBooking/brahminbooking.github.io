@@ -13,7 +13,7 @@ describe('Go API transport', () => {
   })
   it('does not retry a failed write against another service', async () => {
     vi.stubEnv('NEXT_PUBLIC_API_BASE_URL', 'https://api.example.test')
-    const fetcher = vi.fn().mockResolvedValue({ ok: false, status: 503 })
+    const fetcher = vi.fn().mockResolvedValue({ ok: false, status: 503, json: async () => ({ error: 'service_unavailable' }) })
     vi.stubGlobal('fetch', fetcher)
     const { apiRequest } = await import('./client')
     await expect(apiRequest('/v1/booking-requests', {})).rejects.toThrow('serviceUnavailable')

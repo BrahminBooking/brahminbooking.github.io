@@ -571,3 +571,12 @@ h1, h2 { margin: 0; font-family: Georgia, "Noto Serif Devanagari", "Noto Serif G
   .panchang-empty-page { min-height: 360px; padding: 28px 20px; }
   .system-page__actions { flex-direction: column; }
 }
+
+/* Account actions stay readable without changing the public registration form. */
+.auth-account { display: flex; flex-direction: column; align-items: stretch; gap: 20px; max-width: 660px; overflow-wrap: anywhere; }
+.auth-account form { padding: 0; border: 0; display: grid; gap: 16px; }
+.auth-account button { min-height: 44px; padding: 10px 16px; border: 1px solid #bba48c; border-radius: 8px; text-align: center; cursor: pointer; }
+.auth-account button:disabled { cursor: wait; opacity: .6; }
+.auth-account button:focus-visible { outline: 3px solid #995431; outline-offset: 3px; }
+.auth-account .booking-submit { display: block; text-align: center; }
+.auth-choices { display: grid; gap: 12px; }

@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react'
 import { track } from '@/lib/analytics'
 import { localeLabels, supportedLocales, type SupportedLocale } from '@/i18n/config'
 import { useSiteLocale } from '@/i18n/SiteLocaleProvider'
+import { useAuth } from '@/features/auth/AuthProvider'
+import { authCopy } from '@/features/auth/copy'
 
 const navigation = [
   { href: '/#today', key: 'today' },
@@ -18,6 +20,8 @@ const navigation = [
 export function SiteHeader() {
   const { locale, setLocale } = useSiteLocale()
   const t = useTranslations('site')
+  const { user } = useAuth()
+  const c = authCopy(locale)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -37,6 +41,7 @@ export function SiteHeader() {
           {navigation.map((item) => <Link key={item.href} href={item.href}>{t(`nav.${item.key}`)}</Link>)}
         </nav>
         <div className="consumer-header__actions">
+          <Link className="provider-link" href="/auth/">{user ? c.account : c.signin}</Link>
           <label className="consumer-language">
             <span className="sr-only">{t('language')}</span>
             <select aria-label={t('language')} value={locale} onChange={(event) => setLocale(event.target.value as SupportedLocale)}>
@@ -51,6 +56,7 @@ export function SiteHeader() {
         </div>
       </div>
       <nav id="mobile-menu" className={`mobile-nav${menuOpen ? ' is-open' : ''}`} aria-label="Mobile navigation">
+        <Link href="/auth/" onClick={() => setMenuOpen(false)}>{user ? c.account : c.signin}</Link>
         {navigation.map((item) => <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{t(`nav.${item.key}`)}</Link>)}
         <Link href="/register-as-brahmin/" onClick={() => { setMenuOpen(false); track('provider_registration_cta_clicked', { route: '/register-as-brahmin/' }) }}>{t('nav.join')}</Link>
         <Link className="mobile-nav__book" href="/book/" onClick={() => setMenuOpen(false)}>{t('nav.book')}</Link>

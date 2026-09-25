@@ -13,11 +13,11 @@ test('all V0 routes are reachable from the static export', async ({ page }) => {
 test('privacy notice covers private guest requests', async ({ page }) => {
   await page.goto('/privacy/')
   await expect(page.getByRole('heading', { name: 'Guest request' })).toBeVisible()
-  await expect(page.getByText('Your details remain private', { exact: false })).toBeVisible()
+  await expect(page.getByText('Sign in and verify your email before requesting a booking.', { exact: false })).toBeVisible()
   await expect(page.getByRole('link', { name: /Request booking/ })).toHaveAttribute('href', '/book/')
 })
 
-test('guest can submit a booking request without authentication', async ({ page }) => {
+test('demo-only booking fixture remains usable; live submission requires verified auth', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('link', { name: /View full Panchang/i }).click()
   await expect(page).toHaveURL(/\/panchang\/$/)

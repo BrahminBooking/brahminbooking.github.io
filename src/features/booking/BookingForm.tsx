@@ -7,6 +7,11 @@ import { useEffect, useRef, useState } from 'react'
 import { useForm, useWatch, type Path } from 'react-hook-form'
 import { approvedPujaGuides } from '@/content/pujas'
 import { PlaceSearchInput } from '@/components/PlaceSearchInput'
+import Link from 'next/link'
+import { useAuth } from '@/features/auth/AuthProvider'
+import { authNotices } from '@/features/auth/notices'
+import { authCopy } from '@/features/auth/copy'
+import { useSiteLocale } from '@/i18n/SiteLocaleProvider'
 import { track } from '@/lib/analytics'
 import { bookingDraftSchema, bookingRequestSchema, type BookingDraftValues, type BookingRequestValues } from './schema'
 import { saveReceipt, submitBookingRequest } from './submit'
@@ -38,6 +43,10 @@ const validationErrorKeys: Record<string, string> = {
 }
 
 export function BookingForm() {
+  const { account, loading } = useAuth()
+  const { locale } = useSiteLocale()
+  const notice = authNotices[locale][0]
+  const c = authCopy(locale)
   const router = useRouter()
   const t = useTranslations('site')
   const registrationT = useTranslations('registration')
@@ -109,6 +118,10 @@ export function BookingForm() {
       track('booking_request_submitted', { route: '/book/', service_category: values.serviceSlug })
       router.push('/booking/requested/')
     } catch (error) {
+      if (error instanceof Error && ['unauthorized', 'email_verification_required'].includes(error.message)) {
+        router.push('/auth/?next=/book/')
+        return
+      }
       setSubmissionError(error instanceof Error && error.message === 'serviceUnavailable' ? t('book.serviceUnavailable') : t('book.sendFailed'))
     }
   }
@@ -142,6 +155,7 @@ export function BookingForm() {
   }
 
   return <form ref={formRef} className="booking-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+    {process.env.NEXT_PUBLIC_DEMO_MODE !== 'true' && !account?.permissions.submit_booking && <div className="auth-message"><p>{notice}</p><Link href="/auth/?next=/book/">{loading ? c.loading : c.signin + ' / ' + c.verify}</Link></div>}
     <div className="booking-progress" role="progressbar" aria-valuemin={1} aria-valuemax={bookingSteps.length} aria-valuenow={stepIndex + 1} aria-label={registrationT('stepCount', { current: stepIndex + 1, total: bookingSteps.length })}>
       <div><span>{registrationT('stepCount', { current: stepIndex + 1, total: bookingSteps.length })}</span><strong>{t(`book.${currentStep}`)}</strong></div>
       <div className="booking-progress__track" aria-hidden="true"><span style={{ width: `${((stepIndex + 1) / bookingSteps.length) * 100}%` }} /></div>
@@ -165,7 +179,7 @@ export function BookingForm() {
     </div></div>}
 
     {currentStep === 'contact' && <div className="booking-section" data-booking-step="contact"><div className="booking-section__number">03</div><div className="booking-section__content">
-      <h2 tabIndex={-1}>{t('book.contact')}</h2><p>{t('book.contactCopy')}</p>
+      <h2 tabIndex={-1}>{t('book.contact')}</h2><p>{notice}</p>
       <div className="booking-pair"><label className="booking-field"><span>{t('book.name')} <b>*</b></span><input {...register('fullName')} autoComplete="name" />{errorFor('fullName')}</label><label className="booking-field"><span>{t('book.mobile')} <b>*</b></span><input {...register('phone')} inputMode="tel" autoComplete="tel" />{errorFor('phone')}</label></div>
       <label className="booking-field"><span>{t('book.email')} <em>{t('common.optional')}</em></span><input {...register('email')} type="email" autoComplete="email" />{errorFor('email')}</label>
       <label className="check-card check-card--wide"><input type="checkbox" {...register('whatsapp')} /><span><strong>{t('book.whatsapp')}</strong><small>{t('book.whatsappCopy')}</small></span></label>
@@ -180,7 +194,7 @@ export function BookingForm() {
       <label className="website-field">{t('book.leaveBlank')}<input {...register('website')} tabIndex={-1} autoComplete="off" /></label>
       {submissionError && <div className="form-error" role="alert">{submissionError}</div>}
       <div className="booking-step-actions"><button className="booking-back" type="button" onClick={returnToPreviousStep} disabled={isSubmitting}>← {registrationT('buttons.back')}</button><button className="booking-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? t('book.sending') : t('book.submit')} <span aria-hidden="true">→</span></button></div>
-      <p className="submit-note">{t('book.submitNote')}</p>
+      <p className="submit-note">{notice}</p>
     </div></div>}
   </form>
 }

@@ -4,9 +4,15 @@ import Link from 'next/link'
 import { motion, useReducedMotion } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { LivePanchang } from '../panchang/LivePanchang'
+import { useAuth } from '../auth/AuthProvider'
+import { authCopy } from '../auth/copy'
+import { useSiteLocale } from '@/i18n/SiteLocaleProvider'
 
 export function PanchangHero() {
   const t = useTranslations('site')
+  const { user } = useAuth()
+  const { locale } = useSiteLocale()
+  const c = authCopy(locale)
   const reduceMotion = useReducedMotion()
 
   return (
@@ -17,11 +23,12 @@ export function PanchangHero() {
         <p className="panchang-hero__eyebrow"><span aria-hidden="true">✦</span> {t('home.todayPanchang')}</p>
         <h1 id="panchang-hero-title">{t('home.beginWith')} <em>{t('home.todayWord')}</em></h1>
         <p className="panchang-hero__lede">{t('home.panchangLede')}</p>
+        <p><Link className="panchang-secondary-cta" href="/auth/">{user ? c.account : c.signin + ' / ' + c.signup} →</Link></p>
         <div className="panchang-hero__actions">
           <motion.div whileHover={reduceMotion ? undefined : { y: -3 }} whileTap={reduceMotion ? undefined : { scale: .98 }}><Link className="panchang-primary-cta" href="/book/"><span>{t('home.bookPurohit')}</span><b aria-hidden="true">→</b></Link></motion.div>
           <Link className="panchang-secondary-cta" href="/panchang/">{t('home.fullPanchang')} <span aria-hidden="true">↗</span></Link>
         </div>
-        <div className="panchang-hero__reassurance" aria-label={t('home.bookingReassurance')}><span>✓ {t('home.noAccount')}</span><span>✓ {t('home.humanCoordinated')}</span></div>
+        <div className="panchang-hero__reassurance" aria-label={t('home.bookingReassurance')}><span>✓ {t('home.humanCoordinated')}</span></div>
       </motion.div>
       <motion.aside id="today" className="panchang-daily" aria-label={t('home.todayPanchang')} initial={reduceMotion ? false : { opacity: 0, y: 30, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .75, delay: .12, ease: [0.22, 1, .36, 1] }}>
         <LivePanchang compact />

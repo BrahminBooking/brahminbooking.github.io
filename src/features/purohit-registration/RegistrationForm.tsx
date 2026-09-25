@@ -22,6 +22,8 @@ import {
 } from './schema'
 import { submitPurohitRegistration, type SubmissionReceipt } from './submit'
 import type { SupportedLocale } from './RegistrationExperience'
+import { authCopy } from '@/features/auth/copy'
+import { authNotices } from '@/features/auth/notices'
 
 const DRAFT_KEY = 'brahminbooking-purohit-draft'
 
@@ -116,6 +118,8 @@ export function RegistrationForm({ locale, localeLabels, onLocaleChange }: Regis
           <p>{t('success.description')}</p>
           <strong className="reference-number">{receipt.applicationNumber}</strong>
           <p className="muted">{t('success.followup')}</p>
+          <p>{authNotices[locale][2]}</p>
+          <Link href="/auth/">{authCopy(locale).signin} → {authCopy(locale).claim}</Link>
           <div className="success-actions">
             <button type="button" className="button button-secondary" onClick={startAgain}>{t('buttons.startAgain')}</button>
             <Link className="button button-primary" href="/">{t('buttons.home')}</Link>

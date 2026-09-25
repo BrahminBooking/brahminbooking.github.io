@@ -1,61 +1,33 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-
-const request = vi.hoisted(() => vi.fn())
-vi.mock('./client', () => ({ apiRequest: request }))
-const key = 'brahminbooking:api-session:v1'
-let storage: Map<string, string>
-let replaceState: ReturnType<typeof vi.fn>
-
-beforeEach(() => {
-  request.mockReset()
-  storage = new Map()
-  replaceState = vi.fn()
-  vi.stubGlobal('window', {
-    location: { hash: '#access_token=access&refresh_token=refresh&expires_in=3600', pathname: '/sign-in/' },
-    history: { replaceState },
-    sessionStorage: {
-      getItem: (name: string) => storage.get(name) ?? null,
-      setItem: (name: string, value: string) => storage.set(name, value),
-      removeItem: (name: string) => storage.delete(name),
-    },
-  })
-})
-afterEach(() => { vi.unstubAllGlobals(); vi.resetModules() })
-
-describe('optional API session', () => {
-  it('removes callback secrets before verifying and storing a session', async () => {
-    request.mockImplementation(async () => {
-      expect(replaceState).toHaveBeenCalledWith(null, '', '/sign-in/')
-      expect(storage.has(key)).toBe(false)
-      return { id: 'user' }
-    })
-    const { captureSessionFragment } = await import('./session')
-    await captureSessionFragment()
-    expect(request).toHaveBeenCalledWith('/v1/auth/me', undefined, 'access')
-    expect(JSON.parse(storage.get(key)!)).toMatchObject({ access_token: 'access', refresh_token: 'refresh' })
-  })
-  it('does not persist rejected callback tokens', async () => {
-    request.mockRejectedValue(new Error('unauthorized'))
-    const { captureSessionFragment } = await import('./session')
-    await expect(captureSessionFragment()).rejects.toThrow('unauthorized')
-    expect(storage.size).toBe(0)
-    expect(replaceState).toHaveBeenCalledOnce()
-  })
-  it('serializes refresh rotation and clears local state on logout', async () => {
-    storage.set(key, JSON.stringify({ access_token: 'old', refresh_token: 'refresh', expires_at: 1 }))
-    request.mockResolvedValue({ access_token: 'new', refresh_token: 'rotated', expires_in: 3600 })
-    const { accessToken, signOut } = await import('./session')
-    expect(await Promise.all([accessToken(), accessToken()])).toEqual(['new', 'new'])
-    expect(request).toHaveBeenCalledTimes(1)
-    await signOut()
-    expect(request).toHaveBeenLastCalledWith('/v1/auth/logout', {}, 'new')
-    expect(storage.size).toBe(0)
-  })
-  it('clears an expired session if refresh fails', async () => {
-    storage.set(key, JSON.stringify({ access_token: 'old', refresh_token: 'refresh', expires_at: 1 }))
-    request.mockRejectedValue(new Error('unauthorized'))
+const mocks = vi.hoisted(() => ({ ready: vi.fn(), getIdToken: vi.fn(), signOut: vi.fn(), current: true }))
+vi.mock('@/lib/firebase/client', () => ({ firebaseAuth: () => ({ authStateReady: mocks.ready, currentUser: mocks.current ? { getIdToken: mocks.getIdToken } : null }) }))
+vi.mock('firebase/auth', () => ({ signOut: mocks.signOut }))
+beforeEach(() => { vi.clearAllMocks(); mocks.current = true; mocks.ready.mockResolvedValue(undefined); mocks.getIdToken.mockResolvedValue('firebase-token') })
+afterEach(() => vi.unstubAllGlobals())
+describe('Firebase API session', () => {
+  it('waits for restored auth before requesting a refreshed Firebase ID token', async () => {
     const { accessToken } = await import('./session')
-    await expect(accessToken()).resolves.toBeNull()
-    expect(storage.size).toBe(0)
+    expect(await accessToken()).toBe('firebase-token')
+    expect(mocks.ready).toHaveBeenCalledOnce()
+    expect(mocks.getIdToken).toHaveBeenCalledOnce()
+  })
+  it('does not accept legacy fragment or storage tokens', async () => {
+    mocks.current = false
+    vi.stubGlobal('window', { location: { hash: '#access_token=legacy' } })
+    const { accessToken } = await import('./session')
+    expect(await accessToken()).toBeNull()
+  })
+  it('fails closed when refresh fails', async () => {
+    mocks.getIdToken.mockRejectedValueOnce(new Error('revoked'))
+    const { accessToken } = await import('./session')
+    await expect(accessToken()).rejects.toThrow('revoked')
+  })
+  it('signs out Firebase and removes obsolete session storage', async () => {
+    const removeItem = vi.fn()
+    vi.stubGlobal('window', { sessionStorage: { removeItem } })
+    const { signOut } = await import('./session')
+    await signOut()
+    expect(mocks.signOut).toHaveBeenCalledOnce()
+    expect(removeItem).toHaveBeenCalledWith('brahminbooking:api-session:v1')
   })
 })
